@@ -1,7 +1,7 @@
 <template>
   <div class="start" v-on:click="goHome();">
     <div class="big glow" v-on:click="goHome();">{{ word }}</div>
-    <Verse class="footnote" :text="verse" :place="place"/>
+    <Verse class="footnote" :text="verse" :place="place" size="1.3em"/>
   </div>
 </template>
 
@@ -25,7 +25,9 @@ export default {
   },
   methods: {
     goHome: function() {
-      this.$router.push('home');
+      if (this.$router.currentRoute.name != 'home') {
+        this.$router.push('home');
+      }
     }
   }
 }
@@ -33,6 +35,7 @@ export default {
 
 <style scoped>
 .start {
+  cursor: pointer;
   background-color: black;
   color: white;
   margin: 0;
@@ -41,6 +44,7 @@ export default {
   position: fixed;
 }
 .big {
+  cursor: pointer;
   font-family: serif;
   font-size: 5em;
   margin: 0;

@@ -1,7 +1,6 @@
 <template>
   <div class="verse">
-    <div class="text">{{ text }}</div>
-    <div class="place">({{ place }})</div>
+    <div class="font" v-bind:style="{ fontSize: size }">{{ text }} ({{ place }})</div>
   </div>
 </template>
 
@@ -11,17 +10,13 @@ export default {
   props: {
     text: String,
     place: String,
+    size: String,
   }
 }
 </script>
 
 <style scoped>
-.text {
+.font {
   font-family: serif;
-  font-size: 1.3em;
-}
-.place {
-  font-family: serif;
-  font-size: 1.3em;
 }
 </style>
