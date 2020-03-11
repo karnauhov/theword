@@ -34,6 +34,7 @@
               </transition>
             </td>
             <td align="center">
+              <img src="/assets/thorns.png" v-on:click="goStart()" style="{ width: 128px; height: 91px; cursor: pointer;}">
               <div class="non-select" v-on:click="goStart()" :style="{ fontSize: hugeFontSize + 'px' }">{{ name }}</div>
               <div class="non-select" v-on:click="goStart()" :style="{ fontSize: hugeFontSize + 'px' }">{{ title }}</div>
             </td>
@@ -154,10 +155,12 @@ export default {
     this.handleWindowResize();
   },
   beforeMount() {
-    setTimeout(() => this.showOld = true, 3000);
-    setTimeout(() => this.showGospel = true, 1500);
-    setTimeout(() => this.showActs = true, 1500);
-    setTimeout(() => this.showRevelation = true, 3000);
+    setTimeout(() => { 
+      this.showOld = true;
+      this.showGospel = true;
+      this.showActs = true;
+      this.showRevelation = true;
+    }, 2000);
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleWindowResize);
