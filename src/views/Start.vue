@@ -17,15 +17,17 @@ export default {
     return { 
       word: "Слово",
       verse: "\"В начале было Слово, и Слово было у Бога, и Слово было Бог.\"",
-      place: "Библия"
+      place: "Библия",
+      redirect: true
     };
   },
   created: function () {
-    setTimeout(() => this.goHome(), 7000);
+    setTimeout(() => { if (this.redirect) {this.goHome();} }, 7000);
   },
   methods: {
     goHome: function() {
       if (this.$router.currentRoute.name != 'home') {
+        this.redirect = false;
         this.$router.push('home');
       }
     }
