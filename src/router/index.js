@@ -6,6 +6,7 @@ import Old from '../views/Old.vue'
 import Gospel from '../views/Gospel.vue'
 import Acts from '../views/Acts.vue'
 import Revelation from '../views/Revelation.vue'
+import Page from '../views/Page.vue'
 
 
 Vue.use(VueRouter)
@@ -40,6 +41,22 @@ const routes = [
     path: '/revelation',
     name: 'revelation',
     component: Revelation
+  },
+  {
+    path: '/page',
+    component: Page
+  },
+  {
+    path: '/page/:book',
+    component: Page
+  },
+  {
+    path: '/page/:book/:chapter',
+    component: Page
+  },
+  {
+    path: '/page/:book/:chapter/:verse',
+    component: Page
   },
 ]
 

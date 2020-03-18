@@ -13,8 +13,8 @@
     </table>
     <hr>
     <ul class="border">
-      <li v-on:click="goCh1()">{{ ch1 }}</li>
-      <li v-on:click="goCh2()">{{ ch2 }}</li>
+      <li v-on:click="$router.push('/page/rev/1/1')">{{ ch1 }}</li>
+      <li v-on:click="$router.push('/page/rev/2/1')">{{ ch2 }}</li>
       <li>...</li>
     </ul>
   </div>
@@ -28,7 +28,7 @@ export default {
   components: {
     Verse
   },
-    data() {
+  data() {
     return {
       part: "Откровение",
       verse: "\"Се, гряду скоро: блажен соблюдающий слова пророчества книги сей.\"",
@@ -41,12 +41,6 @@ export default {
     goHome: function(event) {
       this.$router.push('/home');
     },
-    goCh1() {
-      this.$router.push('/revelation');
-    },
-    goCh2() {
-      this.$router.push('/revelation');
-    }
   }
 }
 </script>
