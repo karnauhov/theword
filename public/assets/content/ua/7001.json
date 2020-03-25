@@ -1,0 +1,19 @@
+{
+	"content": {
+		"part": "Об'явлення",
+		"name": "Передмова",
+		"verses": [
+			{
+				"id": 1,
+				"place": "Об 1:1",
+				"text": "...",
+				"links": [
+					{ "phrase": "", "place": "", "text": "..." }
+				],
+				"comments": [
+					{ "type": "text", "comment": "Текст коментаря" }
+				]
+			}
+		]
+	}
+}

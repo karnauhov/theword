@@ -1,6 +1,14 @@
 <template>
   <div>
-    <h1>Text</h1>
+    <div>
+      <p>Long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long comment</p>
+    </div>
+    <div>
+      <Verse :text="verse" :place="place" size="3em" />
+    </div>
+    <div>
+      <Verse v-for="link in links" :text="link.verse" :place="link.place" v-bind:key="link.id" size="2em"  />
+    </div>
   </div>
 </template>
 
@@ -14,8 +22,9 @@ export default {
   },
     data() {
     return {
-      verse: "",
-      place: "",
+      verse: "Main text",
+      place: "mt1",
+      links: [{id: "t1", verse: "Text1", place: "txt1"}, {id: "t2", verse: "Text2", place: "txt2"}, {id: "t3", verse: "Text3", place: "txt3"}]
     };
   },
   methods: {

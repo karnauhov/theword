@@ -2,16 +2,16 @@
   <div>
     <table>
       <tr>
-        <td>
+        <td width="1%">
           <img src="/assets/fish.png" v-on:click="goHome()" class="button">
         </td>
         <td>
-          <h1>{{ part }}</h1>
+          <h1 class="zero-margin">{{ part }}</h1>
           <Verse :text="verse" :place="place" size="0.8em"/>
         </td>
       </tr>
     </table>
-    <hr>
+    <hr class="zero-margin">
     <ul class="border">
       <li>...</li>
     </ul>
@@ -51,9 +51,5 @@ table {
   width: 64px;
   height: 64px;
   cursor: pointer;
-}
-
-h1 {
-  margin: 0;
 }
 </style>

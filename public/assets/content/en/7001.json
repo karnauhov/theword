@@ -1,0 +1,19 @@
+{
+	"content": {
+		"part": "Revelation",
+		"name": "Foreword",
+		"verses": [
+			{
+				"id": 1,
+				"place": "Rev 1:1",
+				"text": "...",
+				"links": [
+					{ "phrase": "", "place": "", "text": "..." }
+				],
+				"comments": [
+					{ "type": "text", "comment": "Comment text" }
+				]
+			}
+		]
+	}
+}

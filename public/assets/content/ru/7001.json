@@ -1,0 +1,19 @@
+{
+	"content": {
+		"part": "Откровение",
+		"name": "Предисловие",
+		"verses": [
+			{
+				"id": 1,
+				"place": "Откр 1:1",
+				"text": "...",
+				"links": [
+					{ "phrase": "", "place": "", "text": "..." }
+				],
+				"comments": [
+					{ "type": "text", "comment": "Текст комментария" }
+				]
+			}
+		]
+	}
+}
