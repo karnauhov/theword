@@ -1,0 +1,20 @@
+{
+	"content": {
+		"part": "Apostles",
+		"name": "Greatness of Christ",
+		"places": "Heb 1:1-14",
+		"verses": [
+			{
+				"id": 1,
+				"place": ["Heb 1:1"],
+				"text": ["God, who at sundry times and in divers manners spake in time past unto the fathers by the prophets,"],
+				"links": [
+					{ "phrase": "", "place": "", "text": "..." }
+				],
+				"comments": [
+					{ "type": "text", "comment": "Comment text" }
+				]
+			}
+		]
+	}
+}

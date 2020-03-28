@@ -2,11 +2,12 @@
 	"content": {
 		"part": "Revelation",
 		"name": "Foreword",
+		"places": "Rev 1:1-11",
 		"verses": [
 			{
 				"id": 1,
-				"place": "Rev 1:1",
-				"text": "...",
+				"place": ["Rev 1:1"],
+				"text": ["The Revelation of Jesus Christ, which God gave unto him, to shew unto his servants things which must shortly come to pass; and he sent and signified it by his angel unto his servant John:"],
 				"links": [
 					{ "phrase": "", "place": "", "text": "..." }
 				],

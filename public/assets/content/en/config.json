@@ -1,48 +1,48 @@
 {
 "ui": {
 	"header": "The Word",
-	"subheader": "In the beginning was the Word ...",
+	"subheader": "In the beginning was the Word, and the Word was with God, and the Word was God. (John 1:1)",
     "menu": [
 		{
 			"id": 1000,
 			"name": "Torah",
 			"children": [
-				{ "id": 1001, "name": "..." }
+				{ "id": 1300, "name": "Ten Commandments" }
 			]
 		},
 		{
 			"id": 2000,
 			"name": "Historic books",
 			"children": [
-				{ "id": 2001, "name": "..." }
+				{ "id": 2951, "name": "Ahasuerus and Vashti" }
 			]
 		},
 		{
 			"id": 3000,
 			"name": "Educational books",
 			"children": [
-				{ "id": 3001, "name": "..." }
+				{ "id": 3001, "name": "Psalm 1" }
 			]
 		},
 		{
 			"id": 4000,
 			"name": "Prophets",
 			"children": [
-				{ "id": 4001, "name": "..." }
+				{ "id": 4601, "name": "Daniel in captivity" }
 			]
 		},
 		{
 			"id": 5000,
 			"name": "Gospel",
 			"children": [
-				{ "id": 5001, "name": "..." }
+				{ "id": 5001, "name": "Prologue" }
 			]
 		},
 		{
 			"id": 6000,
 			"name": "Apostles",
 			"children": [
-				{ "id": 6001, "name": "..." }
+				{ "id": 6951, "name": "Greatness of Christ" }
 			]
 		},
 		{

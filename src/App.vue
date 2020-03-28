@@ -4,16 +4,12 @@
       <v-btn color="info" class="mx-2" @click.stop="drawer = !drawer">
         <v-img alt="TheWord Logo" class="shrink" contain src="assets/book.png" width="32"/>
       </v-btn>
-      <v-container color="primary">
+      <v-container color="primary" style="min-width: 100px">
         <v-row no-gutters>
-          <v-col><center class="font-weight-medium">{{ currentPartName }}</center></v-col>
-          <!-- <v-col><v-subheader class="centered-input">{{ currentPartName }}</v-subheader></v-col> -->
+          <v-col><center class="font-weight-medium"><div class="text-truncate">{{ currentPartName }}</div></center></v-col>
         </v-row>
         <v-row no-gutters>
-          <v-col><center class="font-weight-light">{{ currentChapterName }}</center></v-col>
-          <!-- <v-col><v-banner class="mx-0" single-line max-width="500" min-width="20" color="primary" >{{ currentChapterName }}</v-banner></v-col> -->
-          <!-- <v-col><center><v-chip class="ma-2">{{ currentChapterName }}</v-chip></center></v-col> -->
-          <!-- <v-col><v-text-field v-model="currentChapterName" class="centered-input ma-0 pa-0" color="primary" solo flat single-line dence readonly ></v-text-field></v-col> -->
+          <v-col><center class="font-weight-light"><div class="text-truncate">{{ currentChapterName }}</div></center></v-col>
         </v-row>
       </v-container>
       <v-dialog v-model="dialogLanguage" persistent max-width="290">
@@ -37,7 +33,7 @@
     </v-app-bar>
 
     <v-navigation-drawer app v-model="drawer" clipped>
-      <v-treeview dense @update:active="loadContent($event)" :items="this.config.ui ? this.config.ui.menu : undefined" :activatable="true" :hoverable="true" :open-on-click="true">
+      <v-treeview dense @update:active="loadContent($event)" :open="this.getOpenedMenu()" :active="this.getActiveMenu()" :items="this.config.ui ? this.config.ui.menu : undefined" :activatable="true" :hoverable="true" :open-on-click="true">
         <template v-slot:prepend="{ item, open }">
           <v-icon v-if="item.children">{{ open ? 'mdi-folder-open' : 'mdi-folder' }}</v-icon>
           <v-icon v-else>{{ 'mdi-file' }}</v-icon>
@@ -46,7 +42,7 @@
     </v-navigation-drawer>
 
     <v-content>
-      <Page v-if="currentChapterId && currentChapterId != 0" :content="content"/>
+      <Page v-if="currentChapterId && currentChapterId != 0" :content="currentContent"/>
       <Home v-else />
     </v-content>
   </v-app>
@@ -70,14 +66,12 @@ export default {
     lang: { code: "en", name: "English" },
     languages: {},
     config: {},
-    content: {},
+    currentContent: {},
     currentPartName: "",
     currentChapterName: "",
+    currentFolderId: 0,
     currentChapterId: 0,
   }),
-  mounted() {
-    
-  },
   created() {
     this.initData();
   },
@@ -109,10 +103,12 @@ export default {
       this.getConfig();
 
       // Show last content
-      if (localStorage.chapter) {
-        this.loadContent([localStorage.chapter]);
-        // TODO select in menu
+      if (localStorage.chapter && localStorage.folder) {
+        this.currentFolderId = localStorage.folder;
+        this.currentChapterId = localStorage.chapter;
+        this.loadContent([this.currentChapterId]);
       } else {
+        localStorage.folder = 0;
         localStorage.chapter = 0;
       }
     },
@@ -137,28 +133,39 @@ export default {
     },
     loadContent: function(ids) {
       if (ids && ids.length > 0 && ids[0] && ids[0] != 0) {
-        axios.get(`/assets/content/${this.lang.code}/${ids[0]}.json`).then(response => {
-          localStorage.chapter = ids[0];
-          this.currentChapterId = ids[0];
-          this.content = response.data.content;
-          this.currentPartName = this.content.part;
-          this.currentChapterName = this.content.name;
+        this.currentFolderId = this.getFolderId(ids[0]);
+        this.currentChapterId = ids[0];
+        localStorage.folder = this.currentFolderId;
+        localStorage.chapter = this.currentChapterId;
+        axios.get(`/assets/content/${this.lang.code}/${this.currentChapterId}.json`).then(response => {
+          this.currentContent = response.data.content;
+          this.currentPartName = this.currentContent.part;
+          this.currentChapterName = this.currentContent.name;
         }).catch((error) => {
-          localStorage.chapter = 0;
-          this.content = {};
           this.currentChapterId = 0;
+          localStorage.chapter = this.currentChapterId;
+          this.currentContent = {};
           this.currentPartName = this.config && this.config.ui ? this.config.ui.header : "";
           this.currentChapterName = this.config && this.config.ui ? this.config.ui.subheader : "";
           console.error(error);
         });
-      } else {
-        localStorage.chapter = 0;
-        this.content = {};
+      } else if (this.config.ui) {
         this.currentChapterId = 0;
+        localStorage.chapter = this.currentChapterId;
+        this.currentContent = {};
         this.currentPartName = this.config && this.config.ui ? this.config.ui.header : "";
         this.currentChapterName = this.config && this.config.ui ? this.config.ui.subheader : "";
       }
     },
+    getFolderId: function(chapterId) {
+      return parseInt(chapterId / 1000) * 1000;
+    },
+    getOpenedMenu() {
+      return [this.currentFolderId];
+    },
+    getActiveMenu() {
+      return [this.currentChapterId];
+    }
   }
 };
 </script>
