@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app clipped-left color="primary" dark>
-      <v-btn color="info" class="mx-2" @click.stop="drawer = !drawer">
+      <v-btn :color="menuButtonColor" class="mx-2" @click.stop="openMenu()">
         <v-img alt="TheWord Logo" class="shrink" contain src="assets/book.png" width="32"/>
       </v-btn>
       <v-container color="primary" style="min-width: 100px">
@@ -63,6 +63,7 @@ export default {
   },
 
   data: () => ({
+    menuButtonColor: 'info',
     drawer: false,
     dialogLanguage: false,
     lang: { code: "en", name: "English" },
@@ -112,6 +113,7 @@ export default {
       } else {
         localStorage.folder = 0;
         localStorage.chapter = 0;
+        setTimeout(() => { this.drawer = true; setTimeout(() => { this.drawer = false; this.menuButtonColor = 'green'; }, 2000); }, 1000);
       }
     },
     getConfig: function(event) {
@@ -133,6 +135,10 @@ export default {
     restoreLanguage: function(event) {
       this.dialogLanguage = false;
       this.lang = JSON.parse(localStorage.lang);
+    },
+    openMenu: function() {
+      this.menuButtonColor = 'info';
+      this.drawer = !this.drawer
     },
     loadContent: function(ids) {
       if (ids && ids.length > 0 && ids[0] && ids[0] != 0) {
