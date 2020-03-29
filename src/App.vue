@@ -117,6 +117,7 @@ export default {
     getConfig: function(event) {
       axios.get(`/assets/content/${this.lang.code}/config.json`).then(response => {
         this.config = response.data;
+        document.title = this.config.ui ? this.config.ui.header : "The Word"
         if (!localStorage.chapter || localStorage.chapter == 0) {
           this.currentPartName = this.config.ui ? this.config.ui.header : "";
           this.currentChapterName = this.config.ui ? this.config.ui.subheader : "";
@@ -140,27 +141,31 @@ export default {
         localStorage.folder = this.currentFolderId;
         localStorage.chapter = this.currentChapterId;
         axios.get(`/assets/content/${this.lang.code}/${this.currentChapterId}.json`).then(response => {
-          this.currentContent = response.data.content;
-          this.currentPartName = this.currentContent.part;
-          this.currentChapterName = this.currentContent.name;
+          this.changeContent(response.data.content);
         }).catch((error) => {
           this.currentChapterId = 0;
           localStorage.chapter = this.currentChapterId;
-          this.currentContent = {};
-          this.currentPartName = this.config && this.config.ui ? this.config.ui.header : "";
-          this.currentChapterName = this.config && this.config.ui ? this.config.ui.subheader : "";
+          this.changeContent({});
           console.error(error);
         });
       } else if (this.config.ui) {
         this.currentChapterId = 0;
         localStorage.chapter = this.currentChapterId;
-        this.currentContent = {};
-        this.currentPartName = this.config && this.config.ui ? this.config.ui.header : "";
-        this.currentChapterName = this.config && this.config.ui ? this.config.ui.subheader : "";
+        this.changeContent({});
       }
     },
     getFolderId: function(chapterId) {
       return parseInt(chapterId / 1000) * 1000;
+    },
+    changeContent: function(content) {
+      this.currentContent = content;
+      if (this.currentContent.name) {
+        this.currentPartName = this.currentContent.part;
+        this.currentChapterName = this.currentContent.name;
+      } else {
+        this.currentPartName = this.config && this.config.ui ? this.config.ui.header : "";
+        this.currentChapterName = this.config && this.config.ui ? this.config.ui.subheader : "";
+      }
     },
     getOpenedMenu() {
       return [this.currentFolderId];
