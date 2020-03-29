@@ -35,7 +35,7 @@
     <v-navigation-drawer app v-model="drawer" clipped>
       <v-treeview dense @update:active="loadContent($event)" :open="this.getOpenedMenu()" :active="this.getActiveMenu()" :items="this.config.ui ? this.config.ui.menu : undefined" :activatable="true" :hoverable="true" :open-on-click="true">
         <template v-slot:prepend="{ item, open }">
-          <v-icon v-if="item.children">{{ open ? 'mdi-folder-open' : 'mdi-folder' }}</v-icon>
+          <v-icon v-if="item.children">{{ open ? 'mdi-book-open' : 'mdi-book' }}</v-icon>
           <v-icon v-else>{{ 'mdi-file' }}</v-icon>
         </template>
       </v-treeview>
@@ -51,6 +51,8 @@
 <script>
 import Home from './components/Home';
 import Page from './components/Page';
+
+const axios = require('axios').default;
 
 export default {
   name: 'App',
