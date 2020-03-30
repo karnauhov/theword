@@ -1,14 +1,9 @@
 <template>
   <v-container>
-    <v-carousel show-arrows :continuous="false" delimiter-icon="mdi-circle-slice-8">
-      <v-carousel-item v-for="verse in this.content.verses" :key="verse.id">
-      <v-sheet color="green" height="100%" >
-        <v-row class="fill-height" align="center" justify="center">
-          <div>{{ verse.text[0] }}</div>
-        </v-row>
-      </v-sheet>
-      </v-carousel-item>
-    </v-carousel>
+    <v-pagination v-model="pageNum" :length="this.content.verses ? this.content.verses.length : 1"></v-pagination>
+    <v-sheet class="my-2" color="amber accent-1" v-for="(text, i) in this.currentPage().text" v-bind:key="i">
+      <div class="ma-2" >{{ text }} <sub>({{ textPlace(i) }})</sub></div> 
+    </v-sheet>
   </v-container>
 </template>
 
@@ -19,7 +14,29 @@
       content: {}
     },
     data: () => ({
-
+      pageNum: 1,
     }),
+    methods: {
+      currentPage: function() {
+        if (this.content && this.content.verses) {
+          return this.content.verses[this.pageNum - 1];
+        } else {
+          return {};
+        }
+      },
+      textPlace: function(index) {
+        const places = this.currentPage().place
+        if (places && places.length > index) {
+          return places[index];
+        } else {
+          return "";
+        }
+      }
+    },
+    watch: {
+      content: function (val) {
+        this.pageNum = 1;
+      },
+    }
   }
 </script>
