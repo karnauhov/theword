@@ -20,9 +20,10 @@
         </template>
         <v-card>
           <v-card-title class="headline">{{ this.config.ui ? this.config.ui.dlgLanguage : undefined }}</v-card-title>
-          <v-select class="ma-4" v-model="lang" :items="languages.lang" item-text="name" item-value="code"
+          <v-select class="mx-4 mt-4" v-model="lang" :items="languages.lang" item-text="name" item-value="code"
             label="Select" return-object single-line solo>
           </v-select>
+          <div class="mx-6 mb-4 font-weight-medium">{{ this.getBibleTranslate(this.lang ? this.lang.code : undefined) }}</div>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="green darken-1" text @click="restoreLanguage()">{{ this.config.ui ? this.config.ui.btnCancel : undefined }}</v-btn>
@@ -125,6 +126,15 @@ export default {
           this.currentChapterName = this.config.ui ? this.config.ui.subheader : "";
         }
       });
+    },
+    getBibleTranslate: function(lang) {
+      if (lang && this.languages && this.languages.lang) {
+        let language = this.languages.lang.find(l => l.code === lang);
+        if (language) {
+          return language.bible;
+        }
+      }
+      return "";
     },
     setLanguage: function(event) {
       this.dialogLanguage = false;
