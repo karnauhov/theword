@@ -55,6 +55,7 @@
     ],
 	"dlgLanguage": "Выберите ваш язык",
 	"btnCancel": "Отмена",
-	"btnApply": "Применить"
+	"btnApply": "Применить",
+	"txtComment": "Комментариий"
 	}
 }

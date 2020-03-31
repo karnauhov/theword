@@ -43,7 +43,7 @@
     </v-navigation-drawer>
 
     <v-content>
-      <Page v-if="currentChapterId && currentChapterId != 0" :content="currentContent"/>
+      <Page v-if="currentChapterId && currentChapterId != 0" :content="currentContent" :config="config"/>
       <Home v-else />
     </v-content>
   </v-app>

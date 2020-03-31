@@ -55,6 +55,7 @@
     ],
 	"dlgLanguage": "Choose your language",
 	"btnCancel": "Cancel",
-	"btnApply": "Apply" 
+	"btnApply": "Apply",
+	"txtComment": "Comment"
 	}
 }
