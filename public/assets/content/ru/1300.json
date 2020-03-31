@@ -14,10 +14,10 @@
 				],
 				"comments": [
 					{ "type": "text", "comment": "Текст комментария ..." },
-					{ "type": "text", "comment": "Текст комментария 1" },
-					{ "type": "text", "comment": "Текст комментария 2" },
-					{ "type": "text", "comment": "Текст комментария 3" },
-					{ "type": "text", "comment": "Текст комментария 4" }
+					{ "type": "text", "comment": "Текст комментария 1." },
+					{ "type": "text", "comment": "Текст комментария 2." },
+					{ "type": "text", "comment": "Текст комментария 3." },
+					{ "type": "text", "comment": "Текст комментария 4." }
 				]
 			},
 			{
