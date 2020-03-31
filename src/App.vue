@@ -91,8 +91,8 @@ export default {
         this.lang = JSON.parse(localStorage.lang);
       } else if (navigator.language || navigator.userLanguage) {
         let browserLang = navigator.language || navigator.userLanguage;
-        if (browserLang === 'uk') {
-          browserLang = 'ua';
+        if (browserLang === 'uk' || browserLang === 'ua') {
+          browserLang = 'ru';
         }
         let lang = this.languages.lang.find( lang => lang.code === browserLang );
         if (lang) {

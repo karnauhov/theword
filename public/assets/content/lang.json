@@ -1,6 +1,5 @@
 {
 "lang": [
 	{"code": "en", "name": "English", "bible": "King James Version (KJV)"},
-	{"code": "ua", "name": "Українська (Ukrainian)", "bible": "Переклад Р. Турконяка (UTT)"},
 	{"code": "ru", "name": "Русский (Russian)", "bible": "Синодальный перевод (SYNO)"}
 ]}
