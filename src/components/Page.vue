@@ -3,11 +3,11 @@
     <v-pagination v-model="pageNum" :length="this.content.verses ? this.content.verses.length : 1"></v-pagination>
     <v-expansion-panels :value="commentsExpanded" :focusable="currentPage.comments.length > 1" v-if="currentPage.comments && currentPage.comments.length > 0" :readonly="currentPage.comments.length <= 1">
       <v-expansion-panel>
-        <v-expansion-panel-header class="pa-2" color="green lighten-4">
+        <v-expansion-panel-header class="pa-2" color="green lighten-4" :style="{'cursor': currentPage.comments.length > 1 ? 'pointer' : 'default'}">
           <template v-slot:actions>
-            <v-icon class="mx-2" v-if="currentPage.comments.length <= 1" color="teal">mdi-message-arrow-right-outline</v-icon>
-            <v-icon class="mx-2" v-else color="teal">mdi-arrow-down-thick</v-icon>
-            <span class="mt-1" v-if="currentPage.comments && currentPage.comments[0].type == 'text'">{{ currentPage.comments[0].comment }}</span>
+            <v-icon class="mx-0" v-if="currentPage.comments.length <= 1" color="teal">mdi-message-arrow-right</v-icon>
+            <v-icon class="mx-0" v-else color="teal">mdi-arrow-down-circle</v-icon>
+            <span class="mt-1 ml-2" v-if="currentPage.comments && currentPage.comments[0].type == 'text'">{{ currentPage.comments[0].comment }}</span>
             <span v-else>{{ this.config.ui.txtComment }}</span>
           </template>
         </v-expansion-panel-header>
@@ -18,8 +18,13 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-    <v-sheet class="my-2" color="amber accent-1" v-for="(text, i) in this.currentPage.text" v-bind:key="i">
-      <div class="ma-2" >{{ text }} <sub>({{ textPlace(i) }})</sub></div> 
+    <v-sheet class="mt-4" color="amber accent-1" v-for="(text, i) in this.currentPage.text" v-bind:key="i">
+      <div class="ma-2" >
+        <v-badge :content="textPlace(i)" color="primary" overlap offset-x="50" offset-y="4">
+          <v-icon color="orange">mdi-label</v-icon>
+        </v-badge>
+        {{ text }}
+      </div> 
     </v-sheet>
   </v-container>
 </template>
