@@ -4,11 +4,12 @@
     <v-expansion-panels :value="commentsExpanded" :focusable="currentPage.comments.length > 1" v-if="currentPage.comments && currentPage.comments.length > 0" :readonly="currentPage.comments.length <= 1">
       <v-expansion-panel>
         <v-expansion-panel-header class="pa-2" color="green lighten-4">
-          <template v-slot:actions v-if="currentPage.comments.length <= 1">
-            <v-icon color="teal">mdi-message-arrow-left-outline</v-icon>
+          <template v-slot:actions>
+            <v-icon class="mx-2" v-if="currentPage.comments.length <= 1" color="teal">mdi-message-arrow-right-outline</v-icon>
+            <v-icon class="mx-2" v-else color="teal">mdi-arrow-down-thick</v-icon>
+            <span class="mt-1" v-if="currentPage.comments && currentPage.comments[0].type == 'text'">{{ currentPage.comments[0].comment }}</span>
+            <span v-else>{{ this.config.ui.txtComment }}</span>
           </template>
-          <div v-if="currentPage.comments && currentPage.comments[0].type == 'text'">{{ currentPage.comments[0].comment }}</div>
-          <div v-else>{{ this.config.ui.txtComment }}</div>
         </v-expansion-panel-header>
         <v-expansion-panel-content color="green lighten-4">
           <div class="pa-1" v-for="(comment, i) in currentPage.comments" v-bind:key="i">
@@ -61,3 +62,9 @@
     }
   }
 </script>
+
+<style>
+  .v-expansion-panel-header__icon {
+    margin-left: 0 !important;
+  }
+</style>
