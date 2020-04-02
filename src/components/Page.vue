@@ -34,7 +34,8 @@
     name: 'Page',
     props: {
       content: {},
-      config: {}
+      config: {},
+      chapterId: 0,
     },
     data: () => ({
       pageNum: 1,
@@ -62,7 +63,19 @@
     },
     watch: {
       content: function (val) {
-        this.pageNum = 1;
+        if (localStorage.userPage && this.chapterId != undefined) {
+          const page = JSON.parse(localStorage.userPage);
+          if (page && page.c == this.chapterId) {
+            this.pageNum = page.p;
+          } else {
+            this.pageNum = 1;
+          }
+        } else {
+          this.pageNum = 1;
+        }
+      },
+      pageNum: function (val) {
+        localStorage.userPage = JSON.stringify({ "c": this.chapterId, "p": this.pageNum });
       },
     }
   }

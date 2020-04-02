@@ -43,7 +43,7 @@
     </v-navigation-drawer>
 
     <v-content style="min-width: 300px">
-      <Page v-if="currentChapterId && currentChapterId != 0" :content="currentContent" :config="config"/>
+      <Page v-if="currentChapterId && currentChapterId != 0" :content="currentContent" :config="config" :chapterId="currentChapterId"/>
       <Home v-else />
     </v-content>
   </v-app>
@@ -113,7 +113,6 @@ export default {
       if (localStorage.chapter && localStorage.folder) {
         this.currentFolderId = localStorage.folder;
         this.currentChapterId = localStorage.chapter;
-        this.loadContent([this.currentChapterId]);
         if (localStorage.showMenu != undefined && localStorage.showMenu != null && window.innerWidth >= this.mobileBreakPoint) {
           this.drawer = localStorage.showMenu === "true";
         }
