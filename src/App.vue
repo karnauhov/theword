@@ -9,7 +9,7 @@
           <v-col><center class="font-weight-medium"><div class="text-truncate">{{ currentPartName }}</div></center></v-col>
         </v-row>
         <v-row no-gutters>
-          <v-col><center class="font-weight-light"><div class="text-truncate">{{ currentChapterName }}</div></center></v-col>
+          <v-col><center class="font-weight-light"><div class="text-truncate">{{ currentChapterName }}<sup class="places" v-if="currentChapterPlaces"> ({{ currentChapterPlaces }})</sup></div></center></v-col>
         </v-row>
       </v-container>
       <v-dialog v-model="dialogLanguage" persistent max-width="290">
@@ -33,7 +33,7 @@
       </v-dialog>
     </v-app-bar>
 
-    <v-navigation-drawer app v-model="drawer" clipped>
+    <v-navigation-drawer app v-model="drawer" clipped :mobile-break-point="mobileBreakPoint">
       <v-treeview dense @update:active="loadContent($event)" :open="this.getOpenedMenu()" :active="this.getActiveMenu()" :items="this.config.ui ? this.config.ui.menu : undefined" :activatable="true" :hoverable="true" :open-on-click="true">
         <template v-slot:prepend="{ item, open }">
           <v-icon v-if="item.children">{{ open ? 'mdi-book-open' : 'mdi-book' }}</v-icon>
@@ -42,7 +42,7 @@
       </v-treeview>
     </v-navigation-drawer>
 
-    <v-content>
+    <v-content style="min-width: 300px">
       <Page v-if="currentChapterId && currentChapterId != 0" :content="currentContent" :config="config"/>
       <Home v-else />
     </v-content>
@@ -54,6 +54,7 @@ import Home from './components/Home';
 import Page from './components/Page';
 
 const axios = require('axios').default;
+const MOBILE_BREAK_POINT = 1264;
 
 export default {
   name: 'App',
@@ -66,6 +67,7 @@ export default {
   data: () => ({
     menuButtonColor: 'info',
     drawer: false,
+    mobileBreakPoint: MOBILE_BREAK_POINT,
     dialogLanguage: false,
     lang: { code: "en", name: "English" },
     languages: {},
@@ -73,6 +75,7 @@ export default {
     currentContent: {},
     currentPartName: "",
     currentChapterName: "",
+    currentChapterPlaces: "",
     currentFolderId: 0,
     currentChapterId: 0,
   }),
@@ -111,6 +114,9 @@ export default {
         this.currentFolderId = localStorage.folder;
         this.currentChapterId = localStorage.chapter;
         this.loadContent([this.currentChapterId]);
+        if (localStorage.showMenu != undefined && localStorage.showMenu != null && window.innerWidth >= this.mobileBreakPoint) {
+          this.drawer = localStorage.showMenu === "true";
+        }
       } else {
         localStorage.folder = 0;
         localStorage.chapter = 0;
@@ -124,6 +130,7 @@ export default {
         if (!localStorage.chapter || localStorage.chapter == 0) {
           this.currentPartName = this.config.ui ? this.config.ui.header : "";
           this.currentChapterName = this.config.ui ? this.config.ui.subheader : "";
+          this.currentChapterPlaces = "";
         }
       });
     },
@@ -148,7 +155,10 @@ export default {
     },
     openMenu: function() {
       this.menuButtonColor = 'info';
-      this.drawer = !this.drawer
+      this.drawer = !this.drawer;
+      if (window.innerWidth >= this.mobileBreakPoint) {
+        localStorage.showMenu = this.drawer;
+      }
     },
     loadContent: function(ids) {
       if (ids && ids.length > 0 && ids[0] && ids[0] != 0) {
@@ -158,6 +168,9 @@ export default {
         localStorage.chapter = this.currentChapterId;
         axios.get(`/assets/content/${this.lang.code}/${this.currentChapterId}.json`).then(response => {
           this.changeContent(response.data.content);
+          if (window.innerWidth < this.mobileBreakPoint) {
+            this.drawer = false;
+          }
         }).catch((error) => {
           this.currentChapterId = 0;
           localStorage.chapter = this.currentChapterId;
@@ -178,9 +191,11 @@ export default {
       if (this.currentContent.name) {
         this.currentPartName = this.currentContent.part;
         this.currentChapterName = this.currentContent.name;
+        this.currentChapterPlaces = this.currentContent.places;
       } else {
         this.currentPartName = this.config && this.config.ui ? this.config.ui.header : "";
         this.currentChapterName = this.config && this.config.ui ? this.config.ui.subheader : "";
+        this.currentChapterPlaces = "";
       }
     },
     getOpenedMenu() {
@@ -192,3 +207,9 @@ export default {
   }
 };
 </script>
+
+<style>
+  .places {
+    font-size: 0.6em !important;
+  }
+</style>

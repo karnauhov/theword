@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-pagination v-model="pageNum" :length="this.content.verses ? this.content.verses.length : 1"></v-pagination>
-    <v-expansion-panels :value="commentsExpanded" :focusable="currentPage.comments.length > 1" v-if="currentPage.comments && currentPage.comments.length > 0" :readonly="currentPage.comments.length <= 1">
+    <v-expansion-panels :value="commentsExpanded" :focusable="currentPage.comments.length > 1" v-if="currentPage.comments && currentPage.comments.length > 0" :readonly="currentPage.comments.length <= 1" class="mb-4">
       <v-expansion-panel>
         <v-expansion-panel-header class="pa-2" color="green lighten-4" :style="{'cursor': currentPage.comments.length > 1 ? 'pointer' : 'default'}">
           <template v-slot:actions>
@@ -19,8 +19,8 @@
       </v-expansion-panel>
     </v-expansion-panels>
     <v-sheet class="mt-4" color="amber accent-1" v-for="(text, i) in this.currentPage.text" v-bind:key="i">
-      <div class="ma-2" >
-        <v-badge :content="textPlace(i)" color="primary" overlap offset-x="50" offset-y="4">
+      <div class="ma-2 pa-1" >
+        <v-badge :content="textPlace(i)" color="amber accent-1" overlap offset-x="36" offset-y="4">
           <v-icon color="orange">mdi-label</v-icon>
         </v-badge>
         {{ text }}
@@ -71,5 +71,11 @@
 <style>
   .v-expansion-panel-header__icon {
     margin-left: 0 !important;
+  }
+
+  .v-badge__badge {
+    font-size: 0.65em !important;
+    font-family: "Helvetica Narrow", "Arial Narrow", Tahoma, Arial, Helvetica, sans-serif;
+    color: black !important;
   }
 </style>

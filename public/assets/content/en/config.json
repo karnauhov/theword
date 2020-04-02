@@ -7,49 +7,49 @@
 			"id": 1000,
 			"name": "Torah",
 			"children": [
-				{ "id": 1300, "name": "Ten Commandments" }
+				{ "id": 1300, "name": "Ten Commandments", "places": "Ex 20:2-17; Deut 5:6-21" }
 			]
 		},
 		{
 			"id": 2000,
 			"name": "Historic books",
 			"children": [
-				{ "id": 2951, "name": "Ahasuerus and Vashti" }
+				{ "id": 2951, "name": "Ahasuerus and Vashti", "places": "Esther 1" }
 			]
 		},
 		{
 			"id": 3000,
 			"name": "Educational books",
 			"children": [
-				{ "id": 3001, "name": "Psalm 1" }
+				{ "id": 3001, "name": "Psalm 1", "places": "Ps 1" }
 			]
 		},
 		{
 			"id": 4000,
 			"name": "Prophets",
 			"children": [
-				{ "id": 4601, "name": "Daniel in captivity" }
+				{ "id": 4601, "name": "Daniel in captivity", "places": "Dan 1" }
 			]
 		},
 		{
 			"id": 5000,
 			"name": "Gospel",
 			"children": [
-				{ "id": 5001, "name": "Prologue" }
+				{ "id": 5001, "name": "Prologue", "places": "John 1:1-18" }
 			]
 		},
 		{
 			"id": 6000,
 			"name": "Apostles",
 			"children": [
-				{ "id": 6951, "name": "Greatness of Christ" }
+				{ "id": 6951, "name": "Greatness of Christ", "places": "Heb 1" }
 			]
 		},
 		{
 			"id": 7000,
 			"name": "Revelation",
 			"children": [
-				{ "id": 7001, "name": "Foreword" }
+				{ "id": 7001, "name": "Foreword", "places": "Rev 1:1-11" }
 			]
 		}
     ],
