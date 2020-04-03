@@ -9,10 +9,10 @@
 				"place": ["Ps 1:1"],
 				"text": ["Blessed is the man that walketh not in the counsel of the ungodly, nor standeth in the way of sinners, nor sitteth in the seat of the scornful."],
 				"links": [
-					{ "phrase": "", "place": "", "text": "..." }
+					{ "phrase": "", "place": "", "text": "" }
 				],
 				"comments": [
-					{ "type": "text", "comment": "Comment text" }
+					{ "type": "text", "comment": "" }
 				]
 			}
 		]

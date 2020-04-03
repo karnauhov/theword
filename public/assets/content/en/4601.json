@@ -9,10 +9,10 @@
 				"place": ["Dan 1:1"],
 				"text": ["In the third year of the reign of Jehoiakim king of Judah came Nebuchadnezzar king of Babylon unto Jerusalem, and besieged it."],
 				"links": [
-					{ "phrase": "", "place": "", "text": "..." }
+					{ "phrase": "", "place": "", "text": "" }
 				],
 				"comments": [
-					{ "type": "text", "comment": "Comment text" }
+					{ "type": "text", "comment": "" }
 				]
 			}
 		]

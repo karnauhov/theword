@@ -9,10 +9,10 @@
 				"place": ["Ин 1:1"],
 				"text": ["В начале было Слово, и Слово было у Бога, и Слово было Бог."],
 				"links": [
-					{ "phrase": "", "place": "", "text": "..." }
+					{ "phrase": "", "place": "", "text": "" }
 				],
 				"comments": [
-					{ "type": "text", "comment": "Текст комментария" }
+					{ "type": "text", "comment": "" }
 				]
 			}
 		]

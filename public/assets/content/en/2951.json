@@ -9,10 +9,10 @@
 				"place": ["Esther 1:1"],
 				"text": ["Now it came to pass in the days of Ahasuerus, (this is Ahasuerus which reigned, from India even unto Ethiopia, over an hundred and seven and twenty provinces:)"],
 				"links": [
-					{ "phrase": "", "place": "", "text": "..." }
+					{ "phrase": "", "place": "", "text": "" }
 				],
 				"comments": [
-					{ "type": "text", "comment": "Comment text" }
+					{ "type": "text", "comment": "" }
 				]
 			}
 		]

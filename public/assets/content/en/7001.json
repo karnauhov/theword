@@ -9,10 +9,10 @@
 				"place": ["Rev 1:1"],
 				"text": ["The Revelation of Jesus Christ, which God gave unto him, to shew unto his servants things which must shortly come to pass; and he sent and signified it by his angel unto his servant John:"],
 				"links": [
-					{ "phrase": "", "place": "", "text": "..." }
+					{ "phrase": "", "place": "", "text": "" }
 				],
 				"comments": [
-					{ "type": "text", "comment": "Comment text" }
+					{ "type": "text", "comment": "" }
 				]
 			}
 		]

@@ -9,10 +9,10 @@
 				"place": ["John 1:1"],
 				"text": ["In the beginning was the Word, and the Word was with God, and the Word was God."],
 				"links": [
-					{ "phrase": "", "place": "", "text": "..." }
+					{ "phrase": "", "place": "", "text": "" }
 				],
 				"comments": [
-					{ "type": "text", "comment": "Comment text" }
+					{ "type": "text", "comment": "" }
 				]
 			}
 		]

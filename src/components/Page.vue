@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-pagination v-model="pageNum" :length="this.content.verses ? this.content.verses.length : 1"></v-pagination>
-    <v-expansion-panels :value="commentsExpanded" :focusable="currentPage.comments.length > 1" v-if="currentPage.comments && currentPage.comments.length > 0" :readonly="currentPage.comments.length <= 1" class="mb-4">
+    <v-expansion-panels :value="commentsExpanded" :focusable="currentPage.comments.length > 1" v-if="isCommentExists" :readonly="currentPage.comments.length <= 1" class="mb-4">
       <v-expansion-panel>
         <v-expansion-panel-header class="pa-2" color="green lighten-4" :style="{'cursor': currentPage.comments.length > 1 ? 'pointer' : 'default'}">
           <template v-slot:actions>
@@ -49,6 +49,9 @@
         } else {
           return {};
         }
+      },
+      isCommentExists: function() {
+        return this.currentPage.comments && this.currentPage.comments.length > 0 && (this.currentPage.comments[0].comment != "" || this.currentPage.comments.length > 1);
       }
     },
     methods: {
