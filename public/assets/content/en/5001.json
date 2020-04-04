@@ -1,25 +1,27 @@
 {
-	"content": {
-		"part": "Gospel",
-		"name": "Prologue",
-		"places": "John 1:1-18",
-		"verses": [
-			{
-				"id": 1,
-				"place": ["John 1:1"],
-				"text": ["In the beginning was the Word, and the Word was with God, and the Word was God."],
-				"links": [
-					{ 
-						"phrase": "",
-						"places": 	[
-									{"place": "", "text": ""},
-									{"place": "", "text": ""}
-									]
-					}],
-				"comments": [
-					{ "type": "text", "comment": "" }
-				]
-			}
-		]
-	}
+  "content": {
+    "part": "Gospel",
+    "name": "Prologue",
+    "places": "John 1:1-18",
+    "verses": [
+      {
+        "id": 1,
+        "place": ["John 1:1"],
+        "text": ["In the beginning was the Word, and the Word was with God, and the Word was God."],
+        "links": [
+          {
+            "phrase": "",
+            "places": [{
+                "place": "", "text": ""
+              }, {
+                "place": "", "text": ""
+              }]
+          }
+        ],
+        "comments": [{
+            "type": "text", "comment": ""
+          }]
+      }
+    ]
+  }
 }

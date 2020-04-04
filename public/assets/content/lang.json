@@ -1,5 +1,7 @@
 {
-"lang": [
-	{"code": "en", "name": "English", "bible": "King James Version (KJV)"},
-	{"code": "ru", "name": "Русский (Russian)", "bible": "Синодальный перевод (SYNO)"}
-]}
+  "lang": [{
+      "code": "en", "name": "English", "bible": "King James Version (KJV)"
+    }, {
+      "code": "ru", "name": "Русский (Russian)", "bible": "Синодальный перевод (SYNO)"
+    }]
+}

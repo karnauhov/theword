@@ -1,25 +1,27 @@
 {
-	"content": {
-		"part": "Educational books",
-		"name": "Psalm 1",
-		"places": "Ps 1",
-		"verses": [
-			{
-				"id": 1,
-				"place": ["Ps 1:1"],
-				"text": ["Blessed is the man that walketh not in the counsel of the ungodly, nor standeth in the way of sinners, nor sitteth in the seat of the scornful."],
-				"links": [
-					{ 
-						"phrase": "",
-						"places": 	[
-									{"place": "", "text": ""},
-									{"place": "", "text": ""}
-									]
-					}],
-				"comments": [
-					{ "type": "text", "comment": "" }
-				]
-			}
-		]
-	}
+  "content": {
+    "part": "Educational books",
+    "name": "Psalm 1",
+    "places": "Ps 1",
+    "verses": [
+      {
+        "id": 1,
+        "place": ["Ps 1:1"],
+        "text": ["Blessed is the man that walketh not in the counsel of the ungodly, nor standeth in the way of sinners, nor sitteth in the seat of the scornful."],
+        "links": [
+          {
+            "phrase": "",
+            "places": [{
+                "place": "", "text": ""
+              }, {
+                "place": "", "text": ""
+              }]
+          }
+        ],
+        "comments": [{
+            "type": "text", "comment": ""
+          }]
+      }
+    ]
+  }
 }
