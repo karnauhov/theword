@@ -9,7 +9,7 @@
           <v-col><center class="font-weight-medium"><div class="text-truncate">{{ currentPartName }}</div></center></v-col>
         </v-row>
         <v-row no-gutters>
-          <v-col><center class="font-weight-light"><div class="text-truncate">{{ currentChapterName }}<sup class="places" v-if="currentChapterPlaces"> ({{ currentChapterPlaces }})</sup></div></center></v-col>
+          <v-col><center class="font-weight-light"><div class="text-truncate">{{ currentChapterName }}</div></center></v-col>
         </v-row>
       </v-container>
       <v-dialog v-model="dialogLanguage" persistent max-width="290">
@@ -37,7 +37,9 @@
       <v-treeview dense @update:active="loadContent($event)" :open="this.getOpenedMenu()" :active="this.getActiveMenu()" :items="this.config.ui ? this.config.ui.menu : undefined" :activatable="true" :hoverable="true" :open-on-click="true">
         <template v-slot:prepend="{ item, open }">
           <v-icon v-if="item.children">{{ open ? 'mdi-book-open' : 'mdi-book' }}</v-icon>
-          <v-icon v-else>{{ 'mdi-file' }}</v-icon>
+          <v-badge v-else :content="item.places" color="transparent" offset-x="0" offset-y="36">
+            <v-icon>mdi-file</v-icon>
+          </v-badge>
         </template>
       </v-treeview>
     </v-navigation-drawer>
@@ -75,7 +77,6 @@ export default {
     currentContent: {},
     currentPartName: "",
     currentChapterName: "",
-    currentChapterPlaces: "",
     currentFolderId: 0,
     currentChapterId: 0,
   }),
@@ -129,7 +130,6 @@ export default {
         if (!localStorage.chapter || localStorage.chapter == 0) {
           this.currentPartName = this.config.ui ? this.config.ui.header : "";
           this.currentChapterName = this.config.ui ? this.config.ui.subheader : "";
-          this.currentChapterPlaces = "";
         }
       });
     },
@@ -190,11 +190,9 @@ export default {
       if (this.currentContent.name) {
         this.currentPartName = this.currentContent.part;
         this.currentChapterName = this.currentContent.name;
-        this.currentChapterPlaces = this.currentContent.places;
       } else {
         this.currentPartName = this.config && this.config.ui ? this.config.ui.header : "";
         this.currentChapterName = this.config && this.config.ui ? this.config.ui.subheader : "";
-        this.currentChapterPlaces = "";
       }
     },
     getOpenedMenu() {
@@ -210,5 +208,15 @@ export default {
 <style>
   .places {
     font-size: 0.6em !important;
+  }
+
+  .v-expansion-panel-header__icon {
+    margin-left: 0 !important;
+  }
+
+  .v-badge__badge {
+    font-size: 0.65em !important;
+    font-family: "Helvetica Narrow", "Arial Narrow", Tahoma, Arial, Helvetica, sans-serif;
+    color: black !important;
   }
 </style>

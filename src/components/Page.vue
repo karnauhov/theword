@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-pagination v-model="pageNum" :length="this.content.verses ? this.content.verses.length : 1"></v-pagination>
+  <v-container class="pt-0" v-touch="{ left: () => swipe('Left'), right: () => swipe('Right') }">
+    <v-pagination class="my-1" v-model="pageNum" :length="this.content.verses ? this.content.verses.length : 1"></v-pagination>
     <v-expansion-panels :value="commentsExpanded" :focusable="currentPage.comments.length > 1" v-if="isCommentExists" :readonly="currentPage.comments.length <= 1" class="mb-4">
       <v-expansion-panel>
         <v-expansion-panel-header class="pa-2" color="green lighten-4" :style="{'cursor': currentPage.comments.length > 1 ? 'pointer' : 'default'}">
@@ -28,15 +28,20 @@
     </v-sheet>
     <v-sheet class="my-2" v-for="(link, j) in this.currentPage.links" v-bind:key="j + 10">
       <center class="title">{{ link.phrase }}</center>
-      <v-sheet class="mt-4" color="blue lighten-5" v-if="place.text" v-for="(place, k) in link.places" v-bind:key="k + 100">
-        <div class="ma-2 pa-1" >
+      <v-sheet class="mb-4" color="blue lighten-5" v-for="(place, k) in link.places" v-bind:key="k + 100">
+        <div class="ma-2 pa-1" v-if="place.text">
           <v-badge :content="place.place" color="blue lighten-5" overlap offset-x="36" offset-y="4">
-            <v-icon color="blue">mdi-label</v-icon>
+            <v-icon color="blue">mdi-key</v-icon>
           </v-badge>
           {{ place.text }}
         </div> 
       </v-sheet>
     </v-sheet>
+    <v-footer class="font-weight-medium" padless color="blue-grey lighten-4">
+      <v-col class="text-center" cols="12">
+        {{ this.content ? this.content.name : '' }}<br>{{ this.content ? this.content.places : '' }}
+      </v-col>
+    </v-footer>
   </v-container>
 </template>
 
@@ -73,10 +78,18 @@
         } else {
           return "";
         }
-      }
+      },
+      swipe (direction) {
+        if (direction == 'Left' && this.pageNum < this.content.verses.length) {
+          this.pageNum = this.pageNum + 1;
+        } else if (direction == 'Right' && this.pageNum > 0) {
+          this.pageNum = this.pageNum - 1;
+        }
+      },
     },
     watch: {
       content: function (val) {
+        this.$vuetify.goTo(0);
         if (localStorage.userPage && this.chapterId != undefined) {
           const page = JSON.parse(localStorage.userPage);
           if (page && page.c == this.chapterId) {
@@ -94,15 +107,3 @@
     }
   }
 </script>
-
-<style>
-  .v-expansion-panel-header__icon {
-    margin-left: 0 !important;
-  }
-
-  .v-badge__badge {
-    font-size: 0.65em !important;
-    font-family: "Helvetica Narrow", "Arial Narrow", Tahoma, Arial, Helvetica, sans-serif;
-    color: black !important;
-  }
-</style>
