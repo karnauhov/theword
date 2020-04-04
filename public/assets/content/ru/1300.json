@@ -53,7 +53,7 @@
 								]
 				}],
 				"comments": [
-					{ "type": "text", "comment": "Запрет на изготовление и поклонение образу кого-либо или чего-либо" }
+					{ "type": "text", "comment": "" }
 				]
 			},
 			{
@@ -70,7 +70,7 @@
 								]
 				}],
 				"comments": [
-					{ "type": "text", "comment": "Святость имени Бога (запрет пустого произнесения Его имени)" }
+					{ "type": "text", "comment": "" }
 				]
 			},
 			{
@@ -105,7 +105,7 @@
 								]
 				}],
 				"comments": [
-					{ "type": "text", "comment": "Уважительное отношение к родителям" }
+					{ "type": "text", "comment": "" }
 				]
 			},
 			{
@@ -117,7 +117,7 @@
 					{ "phrase": "", "place": "", "text": "" }
 				],
 				"comments": [
-					{ "type": "text", "comment": "Запрет убийства" }
+					{ "type": "text", "comment": "" }
 				]
 			},
 			{
@@ -134,7 +134,7 @@
 								]
 				}],
 				"comments": [
-					{ "type": "text", "comment": "Запрет измены супругу" }
+					{ "type": "text", "comment": "" }
 				]
 			},
 			{
@@ -151,7 +151,7 @@
 								]
 				}],
 				"comments": [
-					{ "type": "text", "comment": "Запрет воровства" }
+					{ "type": "text", "comment": "" }
 				]
 			},
 			{
@@ -168,7 +168,7 @@
 								]
 				}],
 				"comments": [
-					{ "type": "text", "comment": "Запрет лжи" }
+					{ "type": "text", "comment": "" }
 				]
 			},
 			{
@@ -185,7 +185,7 @@
 								]
 				}],
 				"comments": [
-					{ "type": "text", "comment": "Запрет зависти (желания получить себе то что принадлежит другому)" }
+					{ "type": "text", "comment": "" }
 				]
 			}
 		]
