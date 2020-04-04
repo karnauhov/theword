@@ -9,8 +9,13 @@
 				"place": ["Евр 1:1"],
 				"text": ["БОГ, многократно и многообразно говоривший издревле отцам в пророках,"],
 				"links": [
-					{ "phrase": "", "place": "", "text": "" }
-				],
+					{ 
+						"phrase": "",
+						"places": 	[
+									{"place": "", "text": ""},
+									{"place": "", "text": ""}
+									]
+					}],
 				"comments": [
 					{ "type": "text", "comment": "" }
 				]
