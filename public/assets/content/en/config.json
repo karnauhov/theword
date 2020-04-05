@@ -10,21 +10,21 @@
       },
       {
         "id": 1000,
-        "name": "Torah",
+        "name": "Law",
         "children": [{
             "id": 1300, "name": "Ten Commandments", "places": "Ex 20:2-17; Deut 5:6-21"
           }]
       },
       {
         "id": 2000,
-        "name": "Historic books",
+        "name": "History",
         "children": [{
             "id": 2951, "name": "Ahasuerus and Vashti", "places": "Esther 1"
           }]
       },
       {
         "id": 3000,
-        "name": "Educational books",
+        "name": "Wisdom",
         "children": [{
             "id": 3001, "name": "Psalm 1", "places": "Ps 1"
           }]
