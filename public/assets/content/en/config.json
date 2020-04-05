@@ -4,6 +4,11 @@
     "subheader": "In the beginning was the Word, and the Word was with God, and the Word was God. (John 1:1)",
     "menu": [
       {
+        "id": 0,
+        "name": "Home",
+        "children": []
+      },
+      {
         "id": 1000,
         "name": "Torah",
         "children": [{
@@ -51,6 +56,11 @@
         "children": [{
             "id": 7001, "name": "Foreword", "places": "Rev 1:1-11"
           }]
+      },
+      {
+        "id": 8000,
+        "name": "Help",
+        "children": []
       }
     ],
     "dlgLanguage": "Choose your language",

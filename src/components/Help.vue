@@ -1,0 +1,14 @@
+<template>
+  <v-container>
+    <p>{{ tmp }}</p>
+  </v-container>
+</template>
+
+<script>
+  export default {
+    name: 'Help',
+    data: () => ({
+      tmp: "Help page"
+    }),
+  }
+</script>

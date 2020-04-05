@@ -36,7 +36,7 @@
     <v-navigation-drawer app v-model="drawer" clipped :mobile-break-point="mobileBreakPoint">
       <v-treeview dense @update:active="loadContent($event)" :open="this.getOpenedMenu()" :active="this.getActiveMenu()" :items="this.config.ui ? this.config.ui.menu : undefined" :activatable="true" :hoverable="true" :open-on-click="true">
         <template v-slot:prepend="{ item, open }">
-          <v-icon v-if="item.children">{{ open ? 'mdi-book-open' : 'mdi-book' }}</v-icon>
+          <v-icon v-if="item.children">{{ item.id === 0 ? 'mdi-home' : (item.id === 8000 ? 'mdi-help' : (open ? 'mdi-book-open' : 'mdi-book')) }}</v-icon>
           <v-badge v-else :content="item.places" color="transparent" offset-x="0" offset-y="36">
             <v-icon>mdi-file</v-icon>
           </v-badge>
@@ -45,14 +45,16 @@
     </v-navigation-drawer>
 
     <v-content style="min-width: 300px">
-      <Page v-if="currentChapterId && currentChapterId != 0" :content="currentContent" :config="config" :chapterId="currentChapterId"/>
-      <Home v-else />
+      <Home v-if="currentChapterId == 0" />
+      <Help v-else-if="currentChapterId == 8000" />
+      <Page v-else :content="currentContent" :config="config" :chapterId="currentChapterId"/>
     </v-content>
   </v-app>
 </template>
 
 <script>
 import Home from './components/Home';
+import Help from './components/Help';
 import Page from './components/Page';
 
 const axios = require('axios').default;
@@ -63,6 +65,7 @@ export default {
 
   components: {
     Home,
+    Help,
     Page,
   },
 
@@ -161,25 +164,32 @@ export default {
     },
     loadContent: function(ids) {
       if (ids && ids.length > 0 && ids[0] && ids[0] != 0) {
-        this.currentFolderId = this.getFolderId(ids[0]);
-        this.currentChapterId = ids[0];
-        localStorage.folder = this.currentFolderId;
-        localStorage.chapter = this.currentChapterId;
-        axios.get(`/assets/content/${this.lang.code}/${this.currentChapterId}.json`).then(response => {
-          this.changeContent(response.data.content);
-          if (window.innerWidth < this.mobileBreakPoint) {
-            this.drawer = false;
-          }
-        }).catch((error) => {
-          this.currentChapterId = 0;
+        if (ids[0] == 8000) { // Help item
+          this.currentFolderId = ids[0];
+          this.currentChapterId = ids[0];
+          localStorage.folder = this.currentFolderId;
           localStorage.chapter = this.currentChapterId;
-          this.changeContent({});
-          console.error(error);
-        });
+        } else {
+          this.currentFolderId = this.getFolderId(ids[0]);
+          this.currentChapterId = ids[0];
+          localStorage.folder = this.currentFolderId;
+          localStorage.chapter = this.currentChapterId;
+          axios.get(`/assets/content/${this.lang.code}/${this.currentChapterId}.json`).then(response => {
+            this.changeContent(response.data.content);
+          }).catch((error) => {
+            this.currentChapterId = 0;
+            localStorage.chapter = this.currentChapterId;
+            this.changeContent({});
+            console.error(error);
+          });
+        }
       } else if (this.config.ui) {
         this.currentChapterId = 0;
         localStorage.chapter = this.currentChapterId;
         this.changeContent({});
+      }
+      if (window.innerWidth < this.mobileBreakPoint) {
+        this.drawer = false;
       }
     },
     getFolderId: function(chapterId) {
