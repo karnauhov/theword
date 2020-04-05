@@ -169,6 +169,8 @@ export default {
           this.currentChapterId = ids[0];
           localStorage.folder = this.currentFolderId;
           localStorage.chapter = this.currentChapterId;
+          this.currentPartName = this.config && this.config.ui ? this.config.ui.header : "";
+          this.currentChapterName = this.config && this.config.ui ? this.config.ui.subheader : "";
         } else {
           this.currentFolderId = this.getFolderId(ids[0]);
           this.currentChapterId = ids[0];
