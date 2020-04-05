@@ -45,7 +45,7 @@
     </v-navigation-drawer>
 
     <v-content style="min-width: 300px">
-      <Home v-if="currentChapterId == 0" />
+      <Home v-if="currentChapterId == 0" :config="config"/>
       <Help v-else-if="currentChapterId == 8000" />
       <Page v-else :content="currentContent" :config="config" :chapterId="currentChapterId"/>
     </v-content>
