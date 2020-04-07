@@ -3,6 +3,8 @@
     "part": "Мудрость",
     "name": "Псалом 1",
     "places": "Пс 1",
+    "keyText": "",
+    "keyPlace": "",
     "verses": [
       {
         "id": 1,

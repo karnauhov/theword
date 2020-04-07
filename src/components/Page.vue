@@ -38,8 +38,11 @@
       </v-sheet>
     </v-sheet>
     <v-footer class="font-weight-medium" padless color="blue-grey lighten-4">
-      <v-col class="text-center" cols="12">
-        {{ this.content ? this.content.name : '' }}<br>{{ this.content ? this.content.places : '' }}
+      <v-col class="text-center" cols="12" v-if="content">
+        {{ this.content.name }}<br>{{ this.content.places }}
+        <div v-if="content.keyText">
+          <hr>{{ this.content.keyText }} ({{ this.content.keyPlace }})
+        </div>
       </v-col>
     </v-footer>
   </v-container>
