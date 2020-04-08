@@ -45,7 +45,7 @@
     </v-navigation-drawer>
 
     <v-content style="min-width: 300px">
-      <Home v-if="currentChapterId == 0" :config="config"/>
+      <Home v-if="currentChapterId == 0" :config="config" v-on:show-chapter="homeLinkOpenChapter"/>
       <Help v-else-if="currentChapterId == 8000" />
       <Page v-else :content="currentContent" :config="config" :chapterId="currentChapterId"/>
     </v-content>
@@ -212,6 +212,9 @@ export default {
     },
     getActiveMenu() {
       return [this.currentChapterId];
+    },
+    homeLinkOpenChapter(id) {
+      this.loadContent([id]);
     }
   }
 };
