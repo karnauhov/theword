@@ -106,7 +106,7 @@
     },
     methods: {
       onResize () {
-        this.windowSize = { x: window.innerWidth, y: window.innerHeight - 110 };
+        this.windowSize = { x: window.innerWidth, y: window.innerHeight - 100 };
       },
       getPart: function (partId) {
         if (this.config && this.config.ui && this.config.ui.menu) {
