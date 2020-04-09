@@ -12,7 +12,8 @@
           <v-col><center class="font-weight-light"><div class="text-truncate">{{ currentChapterName }}</div></center></v-col>
         </v-row>
       </v-container>
-      <v-dialog v-model="dialogLanguage" persistent max-width="290">
+      <!-- Uncomment for language support -->
+      <!-- <v-dialog v-model="dialogLanguage" persistent max-width="290">
         <template v-slot:activator="{ on }">
           <v-btn color="info" class="ma-2" v-on="on">
             <v-img alt="Language" class="shrink" contain src="assets/language.png" width="32"/>
@@ -30,7 +31,7 @@
             <v-btn color="green darken-1" text @click="setLanguage()">{{ this.config.ui ? this.config.ui.btnApply : undefined }}</v-btn>
           </v-card-actions>
         </v-card>
-      </v-dialog>
+      </v-dialog> -->
     </v-app-bar>
 
     <v-navigation-drawer app v-model="drawer" clipped :mobile-break-point="mobileBreakPoint">
@@ -74,7 +75,7 @@ export default {
     drawer: false,
     mobileBreakPoint: MOBILE_BREAK_POINT,
     dialogLanguage: false,
-    lang: { code: "en", name: "English" },
+    lang: { code: "ru", name: "Русский (Russian)" }, //{ code: "en", name: "English" }, // Change for set English by default
     languages: {},
     config: {},
     currentContent: {},
@@ -98,9 +99,10 @@ export default {
         this.lang = JSON.parse(localStorage.lang);
       } else if (navigator.language || navigator.userLanguage) {
         let browserLang = navigator.language || navigator.userLanguage;
-        if (browserLang === 'uk' || browserLang === 'ua') {
+        // Uncomment for language support
+        //if (browserLang === 'uk' || browserLang === 'ua') {
           browserLang = 'ru';
-        }
+        //}
         let lang = this.languages.lang.find( lang => lang.code === browserLang );
         if (lang) {
           this.lang = lang;
