@@ -44,13 +44,13 @@
         </template>
         <template slot="label" slot-scope="item">
             <div v-if="item.item.children">{{ item.item.name }}</div>
-            <div v-else class="ml-n4 mt-n4" style="z-index: -1; position: absolute;">{{ item.item.name }}</div>
+            <div v-else class="ml-n4 mt-n4" tabindex="0" @keydown.enter="openChapter(item.item.id)" @keydown.space="openChapter(item.item.id)" style="z-index: -1; position: absolute;">{{ item.item.name }}</div>
         </template>
       </v-treeview>
     </v-navigation-drawer>
 
     <v-content style="min-width: 300px">
-      <Home v-if="currentChapterId == 0" :config="config" v-on:show-chapter="homeLinkOpenChapter"/>
+      <Home v-if="currentChapterId == 0" :config="config" v-on:show-chapter="openChapter"/>
       <Help v-else-if="currentChapterId == 8000" />
       <Page v-else :content="currentContent" :config="config" :chapterId="currentChapterId"/>
     </v-content>
@@ -219,9 +219,9 @@ export default {
     getActiveMenu() {
       return [this.currentChapterId];
     },
-    homeLinkOpenChapter(id) {
+    openChapter(id) {
       this.loadContent([id]);
-    }
+    },
   }
 };
 </script>
