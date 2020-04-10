@@ -39,8 +39,12 @@
         <template v-slot:prepend="{ item, open }">
           <v-icon v-if="item.children">{{ item.id === 0 ? 'mdi-home' : (item.id === 8000 ? 'mdi-help' : (open ? 'mdi-book-open' : 'mdi-book')) }}</v-icon>
           <v-badge v-else :content="item.places" color="transparent" offset-x="0" offset-y="36">
-            <v-icon>mdi-file</v-icon>
+            <v-icon class="ml-n4">mdi-file</v-icon>
           </v-badge>
+        </template>
+        <template slot="label" slot-scope="item">
+            <div v-if="item.item.children">{{ item.item.name }}</div>
+            <div v-else class="ml-n4 mt-n4" style="z-index: -1; position: absolute;">{{ item.item.name }}</div>
         </template>
       </v-treeview>
     </v-navigation-drawer>
@@ -178,7 +182,7 @@ export default {
           this.currentChapterId = ids[0];
           localStorage.folder = this.currentFolderId;
           localStorage.chapter = this.currentChapterId;
-          axios.get(`/assets/content/${this.lang.code}/${this.currentChapterId}.json`).then(response => {
+          axios.get(`/assets/content/${this.lang.code}/${this.currentFolderId}/${this.currentChapterId}.json`).then(response => {
             this.changeContent(response.data.content);
           }).catch((error) => {
             this.currentChapterId = 0;
