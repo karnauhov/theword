@@ -91,6 +91,42 @@ export default {
   created() {
     this.initData();
   },
+  mounted() {
+    let self = this;
+    window.addEventListener('keydown', function (event) {
+      if (event.ctrlKey && event.keyCode === 'S'.charCodeAt(0)) {
+        event.preventDefault()
+        self.openMenu();
+      } else if (event.ctrlKey && event.keyCode === '0'.charCodeAt(0)) {
+        event.preventDefault()
+        self.openChapter(0);
+      } else if (event.ctrlKey && (event.keyCode === '8'.charCodeAt(0) || event.keyCode === 'H'.charCodeAt(0))) {
+        event.preventDefault()
+        self.openChapter(8000);
+      } else if (event.ctrlKey && event.keyCode === '1'.charCodeAt(0)) {
+        event.preventDefault()
+        self.openChapter(1300);
+      } else if (event.ctrlKey && event.keyCode === '2'.charCodeAt(0)) {
+        event.preventDefault()
+        self.openChapter(2951);
+      } else if (event.ctrlKey && event.keyCode === '3'.charCodeAt(0)) {
+        event.preventDefault()
+        self.openChapter(3001);
+      } else if (event.ctrlKey && event.keyCode === '4'.charCodeAt(0)) {
+        event.preventDefault()
+        self.openChapter(4601);
+      } else if (event.ctrlKey && event.keyCode === '5'.charCodeAt(0)) {
+        event.preventDefault()
+        self.openChapter(5001);
+      } else if (event.ctrlKey && event.keyCode === '6'.charCodeAt(0)) {
+        event.preventDefault()
+        self.openChapter(6951);
+      } else if (event.ctrlKey && event.keyCode === '7'.charCodeAt(0)) {
+        event.preventDefault()
+        self.openChapter(7001);
+      }
+    });
+  },
   methods: {
     initData: async function(event) {
       // Get all languages
