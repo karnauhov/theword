@@ -28,6 +28,7 @@
     </v-sheet>
     <v-sheet class="my-2" v-for="(link, j) in this.currentPage.links" v-bind:key="j + 10">
       <center class="title">{{ link.phrase }}</center>
+      <div class="subtitle-2"  v-if="link.words">[{{ link.words }}]</div>
       <v-sheet class="mb-4" color="blue lighten-5" v-for="(place, k) in link.places" v-bind:key="k + 100">
         <div class="ma-2 pa-1" v-if="place.text">
           <v-badge :content="place.place" color="blue lighten-5" overlap offset-x="36" offset-y="4">
