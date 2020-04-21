@@ -13,7 +13,7 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content color="green lighten-4">
           <div class="pa-1" v-for="(comment, i) in currentPage.comments" v-bind:key="i">
-            <div v-if="comment.type == 'text' && i != 0">{{ comment.comment }}</div>
+            <div v-if="comment.type == 'text' && i != 0"><span v-html="comment.comment"></span></div>
           </div>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -28,13 +28,12 @@
     </v-sheet>
     <v-sheet class="my-2" v-for="(link, j) in this.currentPage.links" v-bind:key="j + 10">
       <center class="title">{{ link.phrase }}</center>
-      <div class="subtitle-2"  v-if="link.words">[{{ link.words }}]</div>
       <v-sheet class="mb-4" color="blue lighten-5" v-for="(place, k) in link.places" v-bind:key="k + 100">
         <div class="ma-2 pa-1" v-if="place.text">
           <v-badge :content="place.place" color="blue lighten-5" overlap offset-x="36" offset-y="4">
             <v-icon color="blue">mdi-key</v-icon>
           </v-badge>
-          {{ place.text }}
+          &nbsp;<span v-html="place.text"></span>
         </div> 
       </v-sheet>
     </v-sheet>
