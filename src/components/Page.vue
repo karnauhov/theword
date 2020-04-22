@@ -1,6 +1,6 @@
 <template>
   <v-container class="pt-0" v-touch="{ left: () => swipe('Left'), right: () => swipe('Right') }">
-    <v-pagination class="my-1" v-model="pageNum" :length="this.content.verses ? this.content.verses.length : 1"></v-pagination>
+    <v-pagination class="my-1" v-if="this.content.verses && this.content.verses.length > 1" v-model="pageNum" :length="this.content.verses ? this.content.verses.length : 1"></v-pagination>
     <v-expansion-panels :value="commentsExpanded" :focusable="currentPage.comments.length > 1" v-if="isCommentExists" :readonly="currentPage.comments.length <= 1" class="mb-4">
       <v-expansion-panel>
         <v-expansion-panel-header class="pa-2" color="green lighten-4" :style="{'cursor': currentPage.comments.length > 1 ? 'pointer' : 'default'}">
