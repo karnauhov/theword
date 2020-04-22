@@ -37,14 +37,14 @@
     <v-navigation-drawer app v-model="drawer" clipped :mobile-break-point="mobileBreakPoint">
       <v-treeview dense @update:active="loadContent($event)" :open="this.getOpenedMenu()" :active="this.getActiveMenu()" :items="this.config.ui ? this.config.ui.menu : undefined" :activatable="true" :hoverable="true" :open-on-click="true">
         <template v-slot:prepend="{ item, open }">
-          <v-icon v-if="item.children">{{ item.id === 0 ? 'mdi-home' : (item.id === 8000 ? 'mdi-help' : (open ? 'mdi-book-open' : 'mdi-book')) }}</v-icon>
+          <v-icon v-if="item.children" class="'grey darken-2'--text">{{ getMenuFolderIcon(item, open) }}</v-icon>
           <v-badge v-else :content="item.places" color="transparent" offset-x="0" offset-y="36">
-            <v-icon class="ml-n4">mdi-file</v-icon>
+            <v-icon class="ml-n4" :class="getMenuFileColor(item)">{{ getMenuFileIcon(item) }}</v-icon>
           </v-badge>
         </template>
         <template slot="label" slot-scope="item">
             <div v-if="item.item.children">{{ item.item.name }}</div>
-            <div v-else class="ml-n4 mt-n4" tabindex="0" @keydown.enter="openChapter(item.item.id)" @keydown.space="openChapter(item.item.id)" style="z-index: -1; position: absolute;">{{ item.item.name }}</div>
+            <div v-else class="ml-n4 mt-n4" :class="getMenuFileColor(item.item)" tabindex="0" @keydown.enter="openChapter(item.item.id)" @keydown.space="openChapter(item.item.id)" style="z-index: -1; position: absolute;">{{ item.item.name }}</div>
         </template>
       </v-treeview>
     </v-navigation-drawer>
@@ -254,6 +254,33 @@ export default {
     },
     getActiveMenu() {
       return [this.currentChapterId];
+    },
+    getMenuFolderIcon(item, open) {
+      if (item.id === 0) {
+        return 'mdi-home';
+      } else if (item.id === 8000) {
+        return 'mdi-help';
+      } else if (item.id === 9000) {
+        return 'mdi-book-search';
+      } else if (open) {
+        return 'mdi-book-open';
+      } else {
+        return 'mdi-book';
+      }
+    },
+    getMenuFileIcon(item) {
+      if (item.finished === undefined || item.finished === null || item.finished) {
+        return 'mdi-file';
+      } else {
+        return 'mdi-file-edit';
+      }
+    },
+    getMenuFileColor(item) {
+      if (item.finished === undefined || item.finished === null || item.finished) {
+        return '"grey darken-2"--text';
+      } else {
+        return 'grey--text';
+      }
     },
     openChapter(id) {
       this.loadContent([id]);
