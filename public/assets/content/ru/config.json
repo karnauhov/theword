@@ -76,6 +76,8 @@
         "name": "Разные темы",
         "children": [{
             "id": 9001, "name": "Пасха", "places": "Символы и смысл", "finished": true
+          },{
+            "id": 9002, "name": "Рождение свыше", "places": "Ключи к пониманию", "finished": false
           }]
       }
     ],
