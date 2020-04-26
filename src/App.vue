@@ -323,4 +323,8 @@ export default {
     font-family: "Helvetica Narrow", "Arial Narrow", Tahoma, Arial, Helvetica, sans-serif;
     color: black !important;
   }
+
+  u {
+    color: red;
+  }
 </style>
