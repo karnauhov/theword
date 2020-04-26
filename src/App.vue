@@ -124,6 +124,9 @@ export default {
       } else if (event.ctrlKey && event.keyCode === '7'.charCodeAt(0)) {
         event.preventDefault()
         self.openChapter(7001);
+      } else if (event.ctrlKey && event.keyCode === '9'.charCodeAt(0)) {
+        event.preventDefault()
+        self.openChapter(9001);
       }
     });
   },

@@ -98,10 +98,10 @@
           if (page && page.c == this.chapterId) {
             this.pageNum = page.p;
           } else {
-            this.pageNum = 1;
+            this.pageNum = this.content && this.content.defaultVerse ? this.content.defaultVerse : 1;
           }
         } else {
-          this.pageNum = 1;
+          this.pageNum = this.content && this.content.defaultVerse ? this.content.defaultVerse : 1;
         }
       },
       pageNum: function (val) {
