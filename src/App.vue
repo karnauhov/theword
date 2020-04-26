@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar app clipped-left color="primary" dark>
       <v-btn :color="menuButtonColor" class="mx-2" @click.stop="openMenu()">
-        <v-img alt="TheWord Logo" class="shrink" contain src="assets/book.png" width="32"/>
+        <v-img alt="TheWord Logo" class="shrink" contain src="/assets/book.png" width="32"/>
       </v-btn>
       <v-container color="primary" style="min-width: 100px">
         <v-row no-gutters>
@@ -16,7 +16,7 @@
       <!-- <v-dialog v-model="dialogLanguage" persistent max-width="290">
         <template v-slot:activator="{ on }">
           <v-btn color="info" class="ma-2" v-on="on">
-            <v-img alt="Language" class="shrink" contain src="assets/language.png" width="32"/>
+            <v-img alt="Language" class="shrink" contain src="/assets/language.png" width="32"/>
           </v-btn>
         </template>
         <v-card>
@@ -90,6 +90,23 @@ export default {
   }),
   created() {
     this.initData();
+
+    // Navigate to chapter and page from params
+    let chapter;
+    let page;
+    if (!isNaN(parseInt(this.$route.query["id"]))) {
+      chapter = parseInt(this.$route.query["id"]);
+    }
+    if (!isNaN(parseInt(this.$route.query["page"]))) {
+      page = parseInt(this.$route.query["page"]);
+    }
+    if (chapter) {
+      if (page) {
+        localStorage.userPage = JSON.stringify({ "c": chapter, "p": page });
+      }
+      this.$router.replace({'query': null});
+      this.openChapter(chapter);
+    }
   },
   mounted() {
     let self = this;
@@ -108,7 +125,7 @@ export default {
         self.openChapter(1300);
       } else if (event.ctrlKey && event.keyCode === '2'.charCodeAt(0)) {
         event.preventDefault()
-        self.openChapter(2951);
+        self.openChapter(2001);
       } else if (event.ctrlKey && event.keyCode === '3'.charCodeAt(0)) {
         event.preventDefault()
         self.openChapter(3001);

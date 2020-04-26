@@ -103,6 +103,9 @@
         } else {
           this.pageNum = this.content && this.content.defaultVerse ? this.content.defaultVerse : 1;
         }
+        if (this.pageNum > this.content.verses.length) {
+          this.pageNum = 1;
+        }
       },
       pageNum: function (val) {
         localStorage.userPage = JSON.stringify({ "c": this.chapterId, "p": this.pageNum });
