@@ -325,6 +325,6 @@ export default {
   }
 
   u {
-    color: red;
+    color: #0D47A1;
   }
 </style>
