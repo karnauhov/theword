@@ -1,19 +1,18 @@
 <template>
   <v-container class="pt-0" v-touch="{ left: () => swipe('Left'), right: () => swipe('Right') }">
     <v-pagination class="my-1" v-if="this.content.verses && this.content.verses.length > 1" v-model="pageNum" :length="this.content.verses ? this.content.verses.length : 1"></v-pagination>
-    <v-expansion-panels :value="commentsExpanded" :focusable="currentPage.comments.length > 1" v-if="isCommentExists" :readonly="currentPage.comments.length <= 1" class="mb-4">
+    <v-expansion-panels :value="commentsExpanded" :focusable="currentPage.comments && currentPage.comments.length > 1" v-if="isCommentExists" :readonly="!currentPage.comments || currentPage.comments.length <= 1" class="mb-4">
       <v-expansion-panel>
-        <v-expansion-panel-header class="pa-2" color="green lighten-4" :style="{'cursor': currentPage.comments.length > 1 ? 'pointer' : 'default'}">
+        <v-expansion-panel-header class="pa-2" color="green lighten-4" :style="{'cursor': currentPage.comments && currentPage.comments.length > 1 ? 'pointer' : 'default'}">
           <template v-slot:actions>
-            <v-icon class="mx-0" v-if="currentPage.comments.length <= 1" color="teal">mdi-message-arrow-right</v-icon>
+            <v-icon class="mx-0" v-if="!currentPage.comments || currentPage.comments.length <= 1" color="teal">mdi-message-arrow-right</v-icon>
             <v-icon class="mx-0" v-else color="teal">mdi-arrow-down-circle</v-icon>
-            <span class="mt-1 ml-2" v-if="currentPage.comments && currentPage.comments[0].type == 'text'">{{ currentPage.comments[0].comment }}</span>
-            <span v-else>{{ this.config.ui.txtComment }}</span>
+            <span class="mt-1 ml-2">{{ currentPage.comments[0] }}</span>
           </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content color="green lighten-4">
           <div class="pa-1" v-for="(comment, i) in currentPage.comments" v-bind:key="i">
-            <div v-if="comment.type == 'text' && i != 0"><span v-html="comment.comment"></span></div>
+            <div v-if="i != 0"><span v-html="comment"></span></div>
           </div>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -26,14 +25,14 @@
         {{ text }}
       </div> 
     </v-sheet>
-    <v-sheet class="my-2" v-for="(link, j) in this.currentPage.links" v-bind:key="j + 10">
-      <center class="title">{{ link.phrase }}</center>
-      <v-sheet class="mb-4" color="blue lighten-5" v-for="(place, k) in link.places" v-bind:key="k + 100">
-        <div class="ma-2 pa-1" v-if="place.text">
-          <v-badge :content="place.place" color="blue lighten-5" overlap offset-x="36" offset-y="4">
+    <v-sheet class="my-2" v-for="(group, j) in this.currentPage.groups" v-bind:key="j + 10">
+      <center class="title">{{ group.name }}</center>
+      <v-sheet class="mb-4" color="blue lighten-5" v-for="(link, k) in group.links" v-bind:key="k + 100">
+        <div class="ma-2 pa-1" v-if="link.text">
+          <v-badge :content="link.place" color="blue lighten-5" overlap offset-x="36" offset-y="4">
             <v-icon color="blue">mdi-key</v-icon>
           </v-badge>
-          &nbsp;<span v-html="place.text"></span>
+          &nbsp;<span v-html="link.text"></span>
         </div> 
       </v-sheet>
     </v-sheet>
@@ -83,10 +82,12 @@
         }
       },
       swipe (direction) {
-        if (direction == 'Left' && this.pageNum < this.content.verses.length) {
-          this.pageNum = this.pageNum + 1;
-        } else if (direction == 'Right' && this.pageNum > 0) {
-          this.pageNum = this.pageNum - 1;
+        if (this.content.verses) {
+          if (direction == 'Left' && this.pageNum < this.content.verses.length) {
+            this.pageNum = this.pageNum + 1;
+          } else if (direction == 'Right' && this.pageNum > 0) {
+            this.pageNum = this.pageNum - 1;
+          }
         }
       },
     },
@@ -103,7 +104,7 @@
         } else {
           this.pageNum = this.content && this.content.defaultVerse ? this.content.defaultVerse : 1;
         }
-        if (this.pageNum > this.content.verses.length) {
+        if (this.content.verses && this.pageNum > this.content.verses.length) {
           this.pageNum = 1;
         }
       },

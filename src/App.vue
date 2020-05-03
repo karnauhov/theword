@@ -63,6 +63,7 @@ import Help from './components/Help';
 import Page from './components/Page';
 
 const axios = require('axios').default;
+const ConfigIniParser = require('config-ini-parser').ConfigIniParser;
 const MOBILE_BREAK_POINT = 1264;
 const CONTENT = "https://raw.githubusercontent.com/karnauhov/theword.content/master/";
 
@@ -239,8 +240,8 @@ export default {
           this.currentChapterId = ids[0];
           localStorage.folder = this.currentFolderId;
           localStorage.chapter = this.currentChapterId;
-          axios.get(`${CONTENT}${this.lang.code}/${this.currentFolderId}/${this.currentChapterId}.json`).then(response => {
-            this.changeContent(response.data.content);
+          axios.get(`${CONTENT}${this.lang.code}/${this.currentFolderId}/${this.currentChapterId}.ini`).then(response => {
+            this.changeContent(this.iniToChapterObject(response.data));
           }).catch((error) => {
             this.currentChapterId = 0;
             localStorage.chapter = this.currentChapterId;
@@ -306,6 +307,82 @@ export default {
     openChapter(id) {
       this.loadContent([id]);
     },
+    iniToChapterObject(iniContent) {
+      const parser = new ConfigIniParser();
+      parser.parse(iniContent);
+      const part = parser.get("__DEFAULT_SECTION__", "part", "").replace(/^"(.*)"$/, '$1').trim();
+      const name = parser.get("__DEFAULT_SECTION__", "name", "").replace(/^"(.*)"$/, '$1').trim();
+      const places = parser.get("__DEFAULT_SECTION__", "places", " ").replace(/^"(.*)"$/, '$1').trim();
+      const keyText = parser.get("__DEFAULT_SECTION__", "keyText", " ").replace(/^"(.*)"$/, '$1').trim();
+      const keyPlace = parser.get("__DEFAULT_SECTION__", "keyPlace", " ").replace(/^"(.*)"$/, '$1').trim();
+      const defaultVerse = parser.isHaveOption("__DEFAULT_SECTION__", "defaultVerse") ? parser.getNumber("__DEFAULT_SECTION__", "defaultVerse") : undefined;
+      const sections = parser.sections();
+      const verses = [];
+      sections.forEach(section => {
+        if (section.indexOf("verse") !== -1) {
+          const verse = {};
+          verse.id = Number.parseInt(section.substring(5));
+          const place = parser.get(section, "place", " ").replace(/^"(.*)"$/, '$1').trim().split('&&&');
+          const text = parser.get(section, "text", " ").replace(/^"(.*)"$/, '$1').trim().split('&&&');
+          const comments = parser.get(section, "comments", " ").replace(/^"(.*)"$/, '$1').trim().split('&&&');
+          const groupNames = parser.get(section, "groups", " ").replace(/^"(.*)"$/, '$1').trim().split('&&&');
+          const options = parser.options(section);
+          const groups = [{"name": "", "links": []}];
+          if (place) {
+            verse.place = place;
+          }
+          if (text) {
+            verse.text = text;
+          }
+          if (comments && comments.length > 0 && comments[0]) {
+            verse.comments = comments;
+          }
+          if (groupNames && groupNames.length > 0) {
+            groupNames.forEach(name => {
+              groups.push({"name": name, "links" : []})
+            });
+            verse.groups = groups;
+          }
+          if (options && options.length > 0) {
+            options.forEach(option => {
+              if (option.indexOf("link") === 0) {
+                const linkData = parser.get(section, option, " ").replace(/^"(.*)"$/, '$1').trim().split('&&&');
+                if (linkData.length === 3) {
+                  const groupIndex = linkData[0] ? Number.parseInt(linkData[0]) : 0;
+                  if (groupIndex > 0 && groupIndex < groups.length) {
+                    const link = { "place": linkData[1], "text": linkData[2] };
+                    groups[groupIndex].links.push(link);
+                  }
+                }
+              }
+            });
+          }
+          verses.push(verse);
+        }
+      });
+
+      const json = {};
+      if (part) {
+        json.part = part;
+      }
+      if (name) {
+        json.name = name;
+      }
+      if (places) {
+        json.places = places;
+      }
+      if (keyText) {
+        json.keyText = keyText;
+      }
+      if (keyPlace) {
+        json.keyPlace = keyPlace;
+      }
+      if (defaultVerse !== undefined) {
+        json.defaultVerse = defaultVerse;
+      }
+      json.verses = verses;
+      return json;
+    }
   }
 };
 </script>
