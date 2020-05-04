@@ -322,10 +322,10 @@ export default {
         if (section.indexOf("verse") !== -1) {
           const verse = {};
           verse.id = Number.parseInt(section.substring(5));
-          const place = parser.get(section, "place", " ").replace(/^"(.*)"$/, '$1').trim().split('&&&');
-          const text = parser.get(section, "text", " ").replace(/^"(.*)"$/, '$1').trim().split('&&&');
-          const comments = parser.get(section, "comments", " ").replace(/^"(.*)"$/, '$1').trim().split('&&&');
-          const groupNames = parser.get(section, "groups", " ").replace(/^"(.*)"$/, '$1').trim().split('&&&');
+          const place = parser.get(section, "place", " ").replace(/^"(.*)"$/, '$1').trim().split('|');
+          const text = parser.get(section, "text", " ").replace(/^"(.*)"$/, '$1').trim().split('|');
+          const comments = parser.get(section, "comments", " ").replace(/^"(.*)"$/, '$1').trim().split('|');
+          const groupNames = parser.get(section, "groups", " ").replace(/^"(.*)"$/, '$1').trim().split('|');
           const options = parser.options(section);
           const groups = [{"name": "", "links": []}];
           if (place) {
@@ -346,7 +346,7 @@ export default {
           if (options && options.length > 0) {
             options.forEach(option => {
               if (option.indexOf("link") === 0) {
-                const linkData = parser.get(section, option, " ").replace(/^"(.*)"$/, '$1').trim().split('&&&');
+                const linkData = parser.get(section, option, " ").replace(/^"(.*)"$/, '$1').trim().split('|');
                 if (linkData.length === 3) {
                   const groupIndex = linkData[0] ? Number.parseInt(linkData[0]) : 0;
                   if (groupIndex > 0 && groupIndex < groups.length) {
