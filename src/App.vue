@@ -349,7 +349,7 @@ export default {
                 const linkData = parser.get(section, option, " ").replace(/^"(.*)"$/, '$1').trim().split('|');
                 if (linkData.length === 3) {
                   const groupIndex = linkData[0] ? Number.parseInt(linkData[0]) : 0;
-                  if (groupIndex > 0 && groupIndex < groups.length) {
+                  if (groupIndex >= 0 && groupIndex < groups.length) {
                     const link = { "place": linkData[1], "text": linkData[2] };
                     groups[groupIndex].links.push(link);
                   }
