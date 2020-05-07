@@ -7,7 +7,7 @@
       "**/node_modules/**"
     ],
     "headers": [{
-      "source" : "**/*.@(ini)",
+      "source" : "**/*.@(json|ini)",
       "headers" : [{
         "key" : "Cache-Control",
         "value" : "max-age=60"
