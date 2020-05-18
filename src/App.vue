@@ -52,6 +52,7 @@
     <v-content style="min-width: 300px">
       <Home v-if="currentChapterId == 0" :config="config" v-on:show-chapter="openChapter"/>
       <Help v-else-if="currentChapterId == 8000" />
+      <Settings v-else-if="currentChapterId == 10000" />
       <Page v-else :content="currentContent" :config="config" :chapterId="currentChapterId"/>
     </v-content>
   </v-app>
@@ -60,6 +61,7 @@
 <script>
 import Home from './components/Home';
 import Help from './components/Help';
+import Settings from './components/Settings';
 import Page from './components/Page';
 
 const axios = require('axios').default;
@@ -73,6 +75,7 @@ export default {
   components: {
     Home,
     Help,
+    Settings,
     Page,
   },
 
@@ -122,6 +125,9 @@ export default {
       } else if (event.ctrlKey && (event.keyCode === '8'.charCodeAt(0) || event.keyCode === 'H'.charCodeAt(0))) {
         event.preventDefault()
         self.openChapter(8000);
+      } else if (event.ctrlKey && event.keyCode === 'X'.charCodeAt(0)) {
+        event.preventDefault()
+        self.openChapter(10000);
       } else if (event.ctrlKey && event.keyCode === '1'.charCodeAt(0)) {
         event.preventDefault()
         self.openChapter(1300);
@@ -228,7 +234,7 @@ export default {
     },
     loadContent: function(ids) {
       if (ids && ids.length > 0 && ids[0] && ids[0] != 0) {
-        if (ids[0] == 8000) { // Help item
+        if (ids[0] == 8000 || ids[0] == 10000) { // Help or Settings item
           this.currentFolderId = ids[0];
           this.currentChapterId = ids[0];
           localStorage.folder = this.currentFolderId;
@@ -282,6 +288,8 @@ export default {
         return 'mdi-home';
       } else if (item.id === 8000) {
         return 'mdi-help';
+      } else if (item.id === 10000) {
+        return 'mdi-tune';
       } else if (item.id === 9000) {
         return 'mdi-book-search';
       } else if (open) {
