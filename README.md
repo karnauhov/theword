@@ -1,5 +1,5 @@
 # theword
-Research of Bible
+Research of the Revelation
 
 ## Project setup
 ```
