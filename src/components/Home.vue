@@ -1,6 +1,21 @@
 <template>
   <v-container v-resize="onResize">
     <table style="width: 100%;">
+      <tr :style="{'height': windowSize.y + 'px'}" align="center">
+        <td style="width: 100%" colspan="4">
+            <v-carousel cycle hide-delimiter-background hide-delimiters show-arrows-on-hover :height="windowSize.y">
+              <v-carousel-item v-for="chapter in getPart(1000).children" :key="chapter.id" @click.native="goToChapter(chapter.id)">
+                <v-sheet class="px-4" :color="colors[5]" height="100%">
+                  <v-row class="fill-height" align="center" justify="center">
+                    <div class="title">{{ `${getPart(1000).name} (${chapter.name})` }}</div>
+                  </v-row>
+                </v-sheet>
+              </v-carousel-item>
+            </v-carousel>
+        </td>
+      </tr>
+    </table>
+    <!--<table style="width: 100%;">
       <tr :style="{'height': windowSize.y * 0.25 + 'px'}" align="center">
         <td style="width: 100%" colspan="4">
             <v-carousel cycle hide-delimiter-background hide-delimiters show-arrows-on-hover :height="windowSize.y * 0.25">
@@ -86,7 +101,7 @@
           </v-carousel>           
         </td>
       </tr>      
-    </table>
+    </table>-->
   </v-container>
 </template>
 
@@ -97,7 +112,6 @@
       config: {},
     },
     data: () => ({
-      tmp: "Home page",
       windowSize: { x: 0, y: 0 },
       colors: ["grey", "red", "green", "lime darken-1", "light-blue accent-1", "primary", "purple"]
     }),

@@ -12,26 +12,6 @@
           <v-col><center class="font-weight-light"><div class="text-truncate">{{ currentChapterName }}</div></center></v-col>
         </v-row>
       </v-container>
-      <!-- Uncomment for language support -->
-      <!-- <v-dialog v-model="dialogLanguage" persistent max-width="290">
-        <template v-slot:activator="{ on }">
-          <v-btn color="info" class="ma-2" v-on="on">
-            <v-img alt="Language" class="shrink" contain src="/assets/language.png" width="32"/>
-          </v-btn>
-        </template>
-        <v-card>
-          <v-card-title class="headline">{{ this.config.ui ? this.config.ui.dlgLanguage : undefined }}</v-card-title>
-          <v-select class="mx-4 mt-4" v-model="lang" :items="languages.lang" item-text="name" item-value="code"
-            label="Select" return-object single-line solo>
-          </v-select>
-          <div class="mx-6 mb-4 font-weight-medium">{{ this.getBibleTranslate(this.lang ? this.lang.code : undefined) }}</div>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="green darken-1" text @click="restoreLanguage()">{{ this.config.ui ? this.config.ui.btnCancel : undefined }}</v-btn>
-            <v-btn color="green darken-1" text @click="setLanguage()">{{ this.config.ui ? this.config.ui.btnApply : undefined }}</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog> -->
     </v-app-bar>
 
     <v-navigation-drawer app v-model="drawer" clipped :mobile-break-point="mobileBreakPoint">
@@ -51,8 +31,6 @@
 
     <v-content style="min-width: 300px">
       <Home v-if="currentChapterId == 0" :config="config" v-on:show-chapter="openChapter"/>
-      <Help v-else-if="currentChapterId == 8000" />
-      <Settings v-else-if="currentChapterId == 10000" />
       <Page v-else :content="currentContent" :config="config" :chapterId="currentChapterId"/>
     </v-content>
   </v-app>
@@ -60,8 +38,6 @@
 
 <script>
 import Home from './components/Home';
-import Help from './components/Help';
-import Settings from './components/Settings';
 import Page from './components/Page';
 
 const axios = require('axios').default;
@@ -74,8 +50,6 @@ export default {
 
   components: {
     Home,
-    Help,
-    Settings,
     Page,
   },
 
@@ -83,9 +57,6 @@ export default {
     menuButtonColor: 'info',
     drawer: false,
     mobileBreakPoint: MOBILE_BREAK_POINT,
-    dialogLanguage: false,
-    lang: { code: "ru", name: "Русский (Russian)" }, //{ code: "en", name: "English" }, // Change for set English by default
-    languages: {},
     config: {},
     currentContent: {},
     currentPartName: "",
@@ -113,74 +84,9 @@ export default {
       this.openChapter(chapter);
     }
   },
-  mounted() {
-    let self = this;
-    window.addEventListener('keydown', function (event) {
-      if (event.ctrlKey && event.keyCode === 'S'.charCodeAt(0)) {
-        event.preventDefault()
-        self.openMenu();
-      } else if (event.ctrlKey && event.keyCode === '0'.charCodeAt(0)) {
-        event.preventDefault()
-        self.openChapter(0);
-      } else if (event.ctrlKey && (event.keyCode === '8'.charCodeAt(0) || event.keyCode === 'H'.charCodeAt(0))) {
-        event.preventDefault()
-        self.openChapter(8000);
-      } else if (event.ctrlKey && event.keyCode === 'X'.charCodeAt(0)) {
-        event.preventDefault()
-        self.openChapter(10000);
-      } else if (event.ctrlKey && event.keyCode === '1'.charCodeAt(0)) {
-        event.preventDefault()
-        self.openChapter(1300);
-      } else if (event.ctrlKey && event.keyCode === '2'.charCodeAt(0)) {
-        event.preventDefault()
-        self.openChapter(2001);
-      } else if (event.ctrlKey && event.keyCode === '3'.charCodeAt(0)) {
-        event.preventDefault()
-        self.openChapter(3001);
-      } else if (event.ctrlKey && event.keyCode === '4'.charCodeAt(0)) {
-        event.preventDefault()
-        self.openChapter(4601);
-      } else if (event.ctrlKey && event.keyCode === '5'.charCodeAt(0)) {
-        event.preventDefault()
-        self.openChapter(5001);
-      } else if (event.ctrlKey && event.keyCode === '6'.charCodeAt(0)) {
-        event.preventDefault()
-        self.openChapter(6951);
-      } else if (event.ctrlKey && event.keyCode === '7'.charCodeAt(0)) {
-        event.preventDefault()
-        self.openChapter(7001);
-      } else if (event.ctrlKey && event.keyCode === '9'.charCodeAt(0)) {
-        event.preventDefault()
-        self.openChapter(9001);
-      }
-    });
-  },
   methods: {
     initData: async function(event) {
-      // Get all languages
-      await axios.get(`/assets/content/lang.json`).then(response => {
-        this.languages = response.data;
-      });
-
-      // Get user language
-      if (localStorage.lang) {
-        this.lang = JSON.parse(localStorage.lang);
-      } else if (navigator.language || navigator.userLanguage) {
-        let browserLang = navigator.language || navigator.userLanguage;
-        // Uncomment for language support
-        //if (browserLang === 'uk' || browserLang === 'ua') {
-          browserLang = 'ru';
-        //}
-        let lang = this.languages.lang.find( lang => lang.code === browserLang );
-        if (lang) {
-          this.lang = lang;
-        }
-        localStorage.lang = JSON.stringify(this.lang);
-      } else {
-        localStorage.lang = JSON.stringify(this.lang);
-      }
-
-      // Get config for language
+      // Get config
       this.getConfig();
 
       // Show last content
@@ -197,33 +103,14 @@ export default {
       }
     },
     getConfig: function(event) {
-      axios.get(`${CONTENT}${this.lang.code}/config.json`).then(response => {
+      axios.get(`${CONTENT}ru/config.json`).then(response => {
         this.config = response.data;
-        document.title = this.config.ui ? this.config.ui.header : "The Word"
+        document.title = this.config.ui ? this.config.ui.header : "Откровение"
         if (!localStorage.chapter || localStorage.chapter == 0) {
           this.currentPartName = this.config.ui ? this.config.ui.header : "";
           this.currentChapterName = this.config.ui ? this.config.ui.subheader : "";
         }
       });
-    },
-    getBibleTranslate: function(lang) {
-      if (lang && this.languages && this.languages.lang) {
-        let language = this.languages.lang.find(l => l.code === lang);
-        if (language) {
-          return language.bible;
-        }
-      }
-      return "";
-    },
-    setLanguage: function(event) {
-      this.dialogLanguage = false;
-      localStorage.lang = JSON.stringify(this.lang);
-      this.getConfig();
-      this.loadContent([this.currentChapterId]);
-    },
-    restoreLanguage: function(event) {
-      this.dialogLanguage = false;
-      this.lang = JSON.parse(localStorage.lang);
     },
     openMenu: function() {
       this.menuButtonColor = 'info';
@@ -234,27 +121,18 @@ export default {
     },
     loadContent: function(ids) {
       if (ids && ids.length > 0 && ids[0] && ids[0] != 0) {
-        if (ids[0] == 8000 || ids[0] == 10000) { // Help or Settings item
-          this.currentFolderId = ids[0];
-          this.currentChapterId = ids[0];
-          localStorage.folder = this.currentFolderId;
+        this.currentFolderId = this.getFolderId(ids[0]);
+        this.currentChapterId = ids[0];
+        localStorage.folder = this.currentFolderId;
+        localStorage.chapter = this.currentChapterId;
+        axios.get(`${CONTENT}ru/${this.currentFolderId}/${this.currentChapterId}.ini`).then(response => {
+          this.changeContent(this.iniToChapterObject(response.data));
+        }).catch((error) => {
+          this.currentChapterId = 0;
           localStorage.chapter = this.currentChapterId;
-          this.currentPartName = this.config && this.config.ui ? this.config.ui.header : "";
-          this.currentChapterName = this.config && this.config.ui ? this.config.ui.subheader : "";
-        } else {
-          this.currentFolderId = this.getFolderId(ids[0]);
-          this.currentChapterId = ids[0];
-          localStorage.folder = this.currentFolderId;
-          localStorage.chapter = this.currentChapterId;
-          axios.get(`${CONTENT}${this.lang.code}/${this.currentFolderId}/${this.currentChapterId}.ini`).then(response => {
-            this.changeContent(this.iniToChapterObject(response.data));
-          }).catch((error) => {
-            this.currentChapterId = 0;
-            localStorage.chapter = this.currentChapterId;
-            this.changeContent({});
-            console.error(error);
-          });
-        }
+          this.changeContent({});
+          console.error(error);
+        });
       } else if (this.config.ui) {
         this.currentChapterId = 0;
         localStorage.chapter = this.currentChapterId;
@@ -286,12 +164,6 @@ export default {
     getMenuFolderIcon(item, open) {
       if (item.id === 0) {
         return 'mdi-home';
-      } else if (item.id === 8000) {
-        return 'mdi-help';
-      } else if (item.id === 10000) {
-        return 'mdi-tune';
-      } else if (item.id === 9000) {
-        return 'mdi-book-search';
       } else if (open) {
         return 'mdi-book-open';
       } else {
