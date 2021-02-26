@@ -3,106 +3,21 @@
     <table style="width: 100%;">
       <tr :style="{'height': windowSize.y + 'px'}" align="center">
         <td style="width: 100%" colspan="4">
-            <v-carousel cycle hide-delimiter-background hide-delimiters show-arrows-on-hover :height="windowSize.y">
-              <v-carousel-item v-for="chapter in getPart(1000).children" :key="chapter.id" @click.native="goToChapter(chapter.id)">
-                <v-sheet class="px-4" :color="colors[5]" height="100%">
-                  <v-row class="fill-height" align="center" justify="center">
-                    <div class="title">{{ `${getPart(1000).name} (${chapter.name})` }}</div>
-                    <v-img width="100%" height="90%" :src="getImagePath(chapter.image)"></v-img>
-                  </v-row>
-                </v-sheet>
-              </v-carousel-item>
-            </v-carousel>
-        </td>
-      </tr>
-    </table>
-    <!--<table style="width: 100%;">
-      <tr :style="{'height': windowSize.y * 0.25 + 'px'}" align="center">
-        <td style="width: 100%" colspan="4">
-            <v-carousel cycle hide-delimiter-background hide-delimiters show-arrows-on-hover :height="windowSize.y * 0.25">
-              <v-carousel-item v-for="chapter in getPart(4000).children" :key="chapter.id" @click.native="goToChapter(chapter.id)">
-                <v-sheet class="px-4" :color="colors[0]" height="100%">
-                  <v-row class="fill-height" align="center" justify="center">
-                    <div class="title">{{ `${getPart(4000).name} (${chapter.name})` }}</div>
-                  </v-row>
-                </v-sheet>
-              </v-carousel-item>
-            </v-carousel>
-        </td>
-      </tr>
-      <tr :style="{'height': windowSize.y * 0.25 + 'px'}" align="center">
-        <td style="width: 50%" colspan="2">
-          <v-carousel cycle hide-delimiter-background hide-delimiters show-arrows-on-hover :height="windowSize.y * 0.25">
+          <v-carousel cycle hide-delimiter-background hide-delimiters show-arrows-on-hover :height="windowSize.y">
             <v-carousel-item v-for="chapter in getPart(1000).children" :key="chapter.id" @click.native="goToChapter(chapter.id)">
-              <v-sheet class="px-4" :color="colors[1]" height="100%">
+              <v-sheet class="px-4" color="white" height="100%">
                 <v-row class="fill-height" align="center" justify="center">
-                  <div class="title">{{ `${getPart(1000).name} (${chapter.name})` }}</div>
-                </v-row>
-              </v-sheet>
-            </v-carousel-item>
-          </v-carousel>          
-        </td>
-        <td style="width: 50%" colspan="2">
-          <v-carousel cycle hide-delimiter-background hide-delimiters show-arrows-on-hover :height="windowSize.y * 0.25">
-            <v-carousel-item v-for="chapter in getPart(7000).children" :key="chapter.id" @click.native="goToChapter(chapter.id)">
-              <v-sheet class="px-4" :color="colors[6]" height="100%">
-                <v-row class="fill-height" align="center" justify="center">
-                  <div class="title">{{ `${getPart(7000).name} (${chapter.name})` }}</div>
-                </v-row>
-              </v-sheet>
-            </v-carousel-item>
-          </v-carousel>          
-        </td>
-      </tr>      
-      <tr :style="{'height': windowSize.y * 0.25 + 'px'}" align="center">
-        <td style="width: 50%" colspan="2">
-          <v-carousel cycle hide-delimiter-background hide-delimiters show-arrows-on-hover :height="windowSize.y * 0.25">
-            <v-carousel-item v-for="chapter in getPart(2000).children" :key="chapter.id" @click.native="goToChapter(chapter.id)">
-              <v-sheet class="px-4" :color="colors[3]" height="100%">
-                <v-row class="fill-height" align="center" justify="center">
-                  <div class="title">{{ `${getPart(2000).name} (${chapter.name})` }}</div>
+                  <v-card width="82%" :color="colors[5]">
+                    <v-card-title class="subtitle-1">{{ `${getPart(1000).name}. ${chapter.name}` }}</v-card-title>
+                    <v-img :src="getImagePath(chapter.image)"></v-img>
+                  </v-card>
                 </v-row>
               </v-sheet>
             </v-carousel-item>
           </v-carousel>
         </td>
-        <td style="width: 50%" colspan="2">
-          <v-carousel cycle hide-delimiter-background hide-delimiters show-arrows-on-hover :height="windowSize.y * 0.25">
-            <v-carousel-item v-for="chapter in getPart(6000).children" :key="chapter.id" @click.native="goToChapter(chapter.id)">
-              <v-sheet class="px-4" :color="colors[5]" height="100%">
-                <v-row class="fill-height" align="center" justify="center">
-                  <div class="title">{{ `${getPart(6000).name} (${chapter.name})` }}</div>
-                </v-row>
-              </v-sheet>
-            </v-carousel-item>
-          </v-carousel>          
-        </td>
       </tr>
-      <tr :style="{'height': windowSize.y * 0.25 + 'px'}" align="center">
-        <td style="width: 50%" colspan="2">
-          <v-carousel cycle hide-delimiter-background hide-delimiters show-arrows-on-hover :height="windowSize.y * 0.25">
-            <v-carousel-item v-for="chapter in getPart(3000).children" :key="chapter.id" @click.native="goToChapter(chapter.id)">
-              <v-sheet class="px-4" :color="colors[2]" height="100%">
-                <v-row class="fill-height" align="center" justify="center">
-                  <div class="title">{{ `${getPart(3000).name} (${chapter.name})` }}</div>
-                </v-row>
-              </v-sheet>
-            </v-carousel-item>
-          </v-carousel>           
-        </td>
-        <td style="width: 50%" colspan="2">
-          <v-carousel cycle hide-delimiter-background hide-delimiters show-arrows-on-hover :height="windowSize.y * 0.25">
-            <v-carousel-item v-for="chapter in getPart(5000).children" :key="chapter.id" @click.native="goToChapter(chapter.id)">
-              <v-sheet class="px-4" :color="colors[4]" height="100%">
-                <v-row class="fill-height" align="center" justify="center">
-                  <div class="title">{{ `${getPart(5000).name} (${chapter.name})` }}</div>
-                </v-row>
-              </v-sheet>
-            </v-carousel-item>
-          </v-carousel>           
-        </td>
-      </tr>      
-    </table>-->
+    </table>
   </v-container>
 </template>
 
