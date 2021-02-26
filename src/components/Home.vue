@@ -8,6 +8,7 @@
                 <v-sheet class="px-4" :color="colors[5]" height="100%">
                   <v-row class="fill-height" align="center" justify="center">
                     <div class="title">{{ `${getPart(1000).name} (${chapter.name})` }}</div>
+                    <v-img width="100%" height="90%" :src="getImagePath(chapter.image)"></v-img>
                   </v-row>
                 </v-sheet>
               </v-carousel-item>
@@ -133,6 +134,9 @@
       },
       goToChapter: function(id) {
         this.$emit('show-chapter', id);
+      },
+      getImagePath(imageName) {
+        return  this.$root.contentUrl + "images/" + (imageName ? imageName : "empty.png");
       }
     },
   }

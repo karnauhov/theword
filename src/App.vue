@@ -43,7 +43,6 @@ import Page from './components/Page';
 const axios = require('axios').default;
 const ConfigIniParser = require('config-ini-parser').ConfigIniParser;
 const MOBILE_BREAK_POINT = 1264;
-const CONTENT = "https://raw.githubusercontent.com/karnauhov/theword.content/master/";
 
 export default {
   name: 'App',
@@ -103,7 +102,7 @@ export default {
       }
     },
     getConfig: function(event) {
-      axios.get(`${CONTENT}ru/config.json`).then(response => {
+      axios.get(`${this.contentUrl}ru/config.json`).then(response => {
         this.config = response.data;
         document.title = this.config.ui ? this.config.ui.header : "Откровение"
         if (!localStorage.chapter || localStorage.chapter == 0) {
@@ -125,7 +124,7 @@ export default {
         this.currentChapterId = ids[0];
         localStorage.folder = this.currentFolderId;
         localStorage.chapter = this.currentChapterId;
-        axios.get(`${CONTENT}ru/${this.currentFolderId}/${this.currentChapterId}.ini`).then(response => {
+        axios.get(`${this.contentUrl}ru/${this.currentFolderId}/${this.currentChapterId}.ini`).then(response => {
           this.changeContent(this.iniToChapterObject(response.data));
         }).catch((error) => {
           this.currentChapterId = 0;
