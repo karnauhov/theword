@@ -29,7 +29,7 @@
       <center class="title">{{ group.name }}</center>
       <v-sheet class="mb-4" color="blue lighten-5" v-for="(item, k) in group.items" v-bind:key="k + 100">
         <div class="ma-2 pa-1" v-if="item.text">
-          <v-badge v-if="item.badge" :content="item.badge" color="blue lighten-5" overlap offset-x="36" offset-y="4">
+          <v-badge v-if="item.badge" :content="item.badge" color="blue lighten-5" overlap offset-x="36" offset-y="1">
             <v-icon color="blue">{{'mdi-' + (item.icon ? item.icon : 'key')}}</v-icon>
           </v-badge>
           <v-icon v-else color="blue">{{'mdi-' + (item.icon ? item.icon : 'key')}}</v-icon>
