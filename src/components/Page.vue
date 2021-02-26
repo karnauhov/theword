@@ -27,12 +27,13 @@
     </v-sheet>
     <v-sheet class="my-2" v-for="(group, j) in this.currentPage.groups" v-bind:key="j + 10">
       <center class="title">{{ group.name }}</center>
-      <v-sheet class="mb-4" color="blue lighten-5" v-for="(link, k) in group.links" v-bind:key="k + 100">
-        <div class="ma-2 pa-1" v-if="link.text">
-          <v-badge :content="link.place" color="blue lighten-5" overlap offset-x="36" offset-y="4">
-            <v-icon color="blue">mdi-key</v-icon>
+      <v-sheet class="mb-4" color="blue lighten-5" v-for="(item, k) in group.items" v-bind:key="k + 100">
+        <div class="ma-2 pa-1" v-if="item.text">
+          <v-badge v-if="item.badge" :content="item.badge" color="blue lighten-5" overlap offset-x="36" offset-y="4">
+            <v-icon color="blue">{{'mdi-' + (item.icon ? item.icon : 'key')}}</v-icon>
           </v-badge>
-          &nbsp;<span v-html="link.text"></span>
+          <v-icon v-else color="blue">{{'mdi-' + (item.icon ? item.icon : 'key')}}</v-icon>
+          &nbsp;<span v-html="item.text"></span>
         </div> 
       </v-sheet>
     </v-sheet>

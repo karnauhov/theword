@@ -18,7 +18,7 @@
       <v-treeview dense @update:active="loadContent($event)" :open="this.getOpenedMenu()" :active="this.getActiveMenu()" :items="this.config.ui ? this.config.ui.menu : undefined" :activatable="true" :hoverable="true" :open-on-click="true">
         <template v-slot:prepend="{ item, open }">
           <v-icon v-if="item.children" class="'grey darken-2'--text">{{ getMenuFolderIcon(item, open) }}</v-icon>
-          <v-badge v-else :content="item.places" color="transparent" offset-x="0" offset-y="36">
+          <v-badge v-else :content="item.badges" color="transparent" offset-x="0" offset-y="36">
             <v-icon class="ml-n4" :class="getMenuFileColor(item)">{{ getMenuFileIcon(item) }}</v-icon>
           </v-badge>
         </template>
@@ -207,7 +207,7 @@ export default {
           const comments = parser.get(section, "comments", " ").replace(/^"(.*)"$/, '$1').trim().split('|');
           const groupNames = parser.get(section, "groups", " ").replace(/^"(.*)"$/, '$1').trim().split('|');
           const options = parser.options(section);
-          const groups = [{"name": "", "links": []}];
+          const groups = [{"name": "", "items": []}];
           if (place) {
             verse.place = place;
           }
@@ -219,19 +219,19 @@ export default {
           }
           if (groupNames && groupNames.length > 0) {
             groupNames.forEach(name => {
-              groups.push({"name": name, "links" : []})
+              groups.push({"name": name, "items" : []})
             });
             verse.groups = groups;
           }
           if (options && options.length > 0) {
             options.forEach(option => {
-              if (option.indexOf("link") === 0) {
-                const linkData = parser.get(section, option, " ").replace(/^"(.*)"$/, '$1').trim().split('|');
-                if (linkData.length === 3) {
-                  const groupIndex = linkData[0] ? Number.parseInt(linkData[0]) : 0;
+              if (option.indexOf("item") === 0) {
+                const itemData = parser.get(section, option, " ").replace(/^"(.*)"$/, '$1').trim().split('|');
+                if (itemData.length === 4) {
+                  const groupIndex = itemData[0] ? Number.parseInt(itemData[0]) : 0;
                   if (groupIndex >= 0 && groupIndex < groups.length) {
-                    const link = { "place": linkData[1], "text": linkData[2] };
-                    groups[groupIndex].links.push(link);
+                    const item = { "badge": itemData[1], "icon": itemData[2], "text": itemData[3] };
+                    groups[groupIndex].items.push(item);
                   }
                 }
               }
