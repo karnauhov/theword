@@ -9,7 +9,7 @@
                 <v-row class="fill-height" align="center" justify="center">
                   <v-card width="82%" :color="colors[5]">
                     <v-card-title class="subtitle-1">{{ `${getPart(1000).name}. ${chapter.name}` }}</v-card-title>
-                    <v-img :src="getImagePath(chapter.image)"></v-img>
+                    <v-img width="100%" :src="getImagePath(chapter.image)" aspect-ratio="0.7"></v-img>
                   </v-card>
                 </v-row>
               </v-sheet>
