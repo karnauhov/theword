@@ -5,10 +5,10 @@
         <v-img alt="TheWord Logo" class="shrink" contain src="/assets/book.png" width="32"/>
       </v-btn>
       <v-container color="primary" style="min-width: 100px">
-        <v-row no-gutters>
+        <v-row class="my-0 py-0" no-gutters>
           <v-col><center class="font-weight-medium"><div class="text-truncate">{{ currentPartName }}</div></center></v-col>
         </v-row>
-        <v-row no-gutters>
+        <v-row class="my-0 py-0" no-gutters>
           <v-col><center class="font-weight-light"><div class="text-truncate">{{ currentChapterName }}</div></center></v-col>
         </v-row>
       </v-container>
@@ -18,7 +18,7 @@
       <v-treeview dense @update:active="loadContent($event)" :open="this.getOpenedMenu()" :active="this.getActiveMenu()" :items="this.config.ui ? this.config.ui.menu : undefined" :activatable="true" :hoverable="true" :open-on-click="true">
         <template v-slot:prepend="{ item, open }">
           <v-icon v-if="item.children" class="'grey darken-2'--text">{{ getMenuFolderIcon(item, open) }}</v-icon>
-          <v-badge v-else :content="item.badges" color="transparent" offset-x="0" offset-y="36">
+          <v-badge v-else :content="item.places" color="transparent" offset-x="0" offset-y="36">
             <v-icon class="ml-n4" :class="getMenuFileColor(item)">{{ getMenuFileIcon(item) }}</v-icon>
           </v-badge>
         </template>
