@@ -9,7 +9,10 @@ Vue.mixin({
   data: function() {
     return {
       get contentUrl() {
-        return "https://raw.githubusercontent.com/karnauhov/theword.content/master/";
+        if (process.env.NODE_ENV === "development")
+          return "http://127.0.0.1:5500/";
+        else
+          return "https://raw.githubusercontent.com/karnauhov/theword.content/master/";
       }
     }
   }
