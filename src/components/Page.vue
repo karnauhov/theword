@@ -7,7 +7,7 @@
           <template v-slot:actions>
             <v-icon class="mx-0" v-if="!currentPage.comments || currentPage.comments.length <= 1" color="teal">mdi-message-arrow-right</v-icon>
             <v-icon class="mx-0" v-else color="teal">mdi-arrow-down-circle</v-icon>
-            <span class="mt-1 ml-2">{{ currentPage.comments[0] }}</span>
+            <span class="mt-1 ml-2" v-html="currentPage.comments[0]"></span>
           </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content color="green lighten-4">
