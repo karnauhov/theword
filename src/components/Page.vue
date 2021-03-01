@@ -64,7 +64,7 @@
       currentPage: function () {
         if (this.content && this.content.verses) {
           this.commentsExpanded = [-1];
-          return this.content.verses[this.pageNum - 1];
+          return this.content.verses[this.pageNum > 0 && this.pageNum <= this.content.verses.length ? this.pageNum - 1 : 0];
         } else {
           return {};
         }
