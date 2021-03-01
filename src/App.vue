@@ -14,7 +14,7 @@
       </v-container>
     </v-app-bar>
 
-    <v-navigation-drawer app v-model="drawer" clipped :mobile-break-point="mobileBreakPoint">
+    <v-navigation-drawer app v-model="drawer" clipped :mobile-breakpoint="mobileBreakPoint">
       <v-treeview dense @update:active="loadContent($event)" :open="this.getOpenedMenu()" :active="this.getActiveMenu()" :items="this.config.ui ? this.config.ui.menu : undefined" :activatable="true" :hoverable="true" :open-on-click="true">
         <template v-slot:prepend="{ item, open }">
           <v-icon v-if="item.children" class="'grey darken-2'--text">{{ getMenuFolderIcon(item, open) }}</v-icon>
@@ -29,10 +29,10 @@
       </v-treeview>
     </v-navigation-drawer>
 
-    <v-content style="min-width: 300px">
+    <v-main style="min-width: 300px">
       <Home v-if="currentChapterId == 0" :config="config" v-on:show-chapter="openChapter"/>
       <Page v-else :content="currentContent" :config="config" :chapterId="currentChapterId"/>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
