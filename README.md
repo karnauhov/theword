@@ -1,5 +1,8 @@
 # theword
 Research of the Revelation
+Sites:
+https://theword.pw
+https://the-main-word.web.app
 
 ## Project setup
 ```
