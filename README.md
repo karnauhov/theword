@@ -1,4 +1,4 @@
-# theword
+# TheWord
 Research of the Revelation
 Sites https://theword.pw and https://the-main-word.web.app
 
