@@ -28,8 +28,7 @@
     <v-sheet class="my-2" v-for="(group, j) in this.currentPage.groups" v-bind:key="j + 10">
       <center class="title">{{ group.name }}</center>
       <v-sheet class="mb-4" color="blue lighten-5" v-for="(item, k) in group.items" v-bind:key="k + 100">
-        <div class="ma-2 pa-1" v-if="item.text">
-          <a :name="'item' + (k + 1)" style="position: relative; top: -42px">&nbsp;</a>
+        <div class="ma-2 pa-1" v-if="item.text" :id="'item' + item.id">
           <v-badge v-if="item.badge" :content="item.badge" color="blue lighten-5" overlap offset-x="36" offset-y="1">
             <v-icon color="blue">{{'mdi-' + (item.icon ? item.icon : 'key')}}</v-icon>
           </v-badge>

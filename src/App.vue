@@ -229,7 +229,7 @@ export default {
                 if (itemData.length === 4) {
                   const groupIndex = itemData[0] ? Number.parseInt(itemData[0]) : 0;
                   if (groupIndex >= 0 && groupIndex < groups.length) {
-                    const item = { "badge": itemData[1], "icon": itemData[2], "text": itemData[3] };
+                    const item = { "id": option.substring(4), "badge": itemData[1], "icon": itemData[2], "text": itemData[3] };
                     groups[groupIndex].items.push(item);
                   }
                 }
