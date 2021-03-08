@@ -60,6 +60,15 @@
       pageNum: 1,
       commentsExpanded: [-1],
     }),
+    updated() {
+      if (!isNaN(parseInt(localStorage.scrollTo))) {
+        const element = document.getElementById("item" + localStorage.scrollTo);
+        if (element) {
+          localStorage.scrollTo = undefined;
+          this.$scrollTo(element, 2000, { offset: -80 });
+        }
+      }
+    },
     computed: {
       currentPage: function () {
         if (this.content && this.content.verses) {

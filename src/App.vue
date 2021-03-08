@@ -69,12 +69,17 @@ export default {
     // Navigate to chapter and page from params
     let chapter;
     let page;
+    let item;
     if (!isNaN(parseInt(this.$route.query["id"]))) {
       chapter = parseInt(this.$route.query["id"]);
     }
     if (!isNaN(parseInt(this.$route.query["page"]))) {
       page = parseInt(this.$route.query["page"]);
     }
+    if (!isNaN(parseInt(this.$route.query["item"]))) {
+      item = parseInt(this.$route.query["item"]);
+    }
+    localStorage.scrollTo = item;
     if (chapter) {
       if (page) {
         localStorage.userPage = JSON.stringify({ "c": chapter, "p": page });
