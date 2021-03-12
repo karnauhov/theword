@@ -287,6 +287,9 @@ export default {
   }
 
   u {
-    color: #0D47A1;
+    color: black;
+    background-color:gold;
+    font-family: system-ui;
+    font-size: 105%;
   }
 </style>
