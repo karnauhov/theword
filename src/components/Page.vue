@@ -17,10 +17,10 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-    <v-sheet class="mt-4" color="amber accent-1" v-for="(text, i) in this.currentPage.text" v-bind:key="i">
+    <v-sheet class="mt-4" color="#FFD700" v-for="(text, i) in this.currentPage.text" v-bind:key="i">
       <div class="ma-2 pa-1 mb-4" >
-        <v-badge :content="textPlace(i)" color="amber accent-1" overlap offset-x="36" offset-y="4">
-          <v-icon color="orange">mdi-label</v-icon>
+        <v-badge :content="textPlace(i)" color="#FFD700" overlap offset-x="36" offset-y="4">
+          <v-icon color="orange darken-1">mdi-key</v-icon>
         </v-badge>
         {{ text }}
       </div> 
