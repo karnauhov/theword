@@ -43,6 +43,9 @@
         <div v-if="content.keyText">
           <hr>{{ this.content.keyText }} ({{ this.content.keyPlace }})
         </div>
+        <div v-if="content.sources" class="text-left">
+          <hr><span v-html="content.sources"></span>
+        </div>
       </v-col>
     </v-footer>
   </v-container>

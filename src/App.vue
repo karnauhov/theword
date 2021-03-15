@@ -199,6 +199,7 @@ export default {
       const places = parser.get("__DEFAULT_SECTION__", "places", " ").replace(/^"(.*)"$/, '$1').trim();
       const keyText = parser.get("__DEFAULT_SECTION__", "keyText", " ").replace(/^"(.*)"$/, '$1').trim();
       const keyPlace = parser.get("__DEFAULT_SECTION__", "keyPlace", " ").replace(/^"(.*)"$/, '$1').trim();
+      const sources = parser.get("__DEFAULT_SECTION__", "sources", " ").replace(/^"(.*)"$/, '$1').trim();
       const defaultVerse = parser.isHaveOption("__DEFAULT_SECTION__", "defaultVerse") ? parser.getNumber("__DEFAULT_SECTION__", "defaultVerse") : undefined;
       const sections = parser.sections();
       const verses = [];
@@ -260,6 +261,9 @@ export default {
       }
       if (keyPlace) {
         json.keyPlace = keyPlace;
+      }
+      if (sources) {
+        json.sources = sources;
       }
       if (defaultVerse !== undefined) {
         json.defaultVerse = defaultVerse;
