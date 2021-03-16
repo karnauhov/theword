@@ -14,14 +14,14 @@
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",
     "vue-scrollto": "^2.20.0",
-    "vuetify": "^2.4.5"
+    "vuetify": "^2.4.6"
   },
   "devDependencies": {
     "@mdi/font": "^5.9.55",
     "@vue/cli-plugin-router": "^4.5.11",
     "@vue/cli-service": "^4.5.11",
     "vue-cli-plugin-firebase-deploy": "0.0.5",
-    "vue-cli-plugin-vuetify": "^2.1.0",
+    "vue-cli-plugin-vuetify": "^2.2.2",
     "vue-template-compiler": "^2.6.12",
     "vuetify-loader": "^1.7.2"
   },

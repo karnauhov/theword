@@ -43,8 +43,18 @@
         <div v-if="content.keyText">
           <hr>{{ this.content.keyText }} ({{ this.content.keyPlace }})
         </div>
-        <div v-if="content.sources" class="text-left">
-          <hr><span v-html="content.sources"></span>
+        <div v-if="content.sources">
+          <hr>
+          <v-expansion-panels >
+            <v-expansion-panel>
+              <v-expansion-panel-header color="blue-grey lighten-4" :style="{'cursor': currentPage.comments && currentPage.comments.length > 1 ? 'pointer' : 'default'}">
+                <center><span v-html="config.ui.sourceName"></span></center>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content class="text-left" color="blue-grey lighten-4">
+                <span v-html="content.sources"></span>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </div>
       </v-col>
     </v-footer>
