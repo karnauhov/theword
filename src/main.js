@@ -3,6 +3,7 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import router from './router'
 import VueScrollTo from 'vue-scrollto'
+import VueYouTubeEmbed from 'vue-youtube-embed'
 
 Vue.config.productionTip = false
 
@@ -20,6 +21,7 @@ Vue.mixin({
 })
 
 Vue.use(VueScrollTo)
+Vue.use(VueYouTubeEmbed)
 
 new Vue({
   vuetify,
