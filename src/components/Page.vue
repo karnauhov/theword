@@ -41,7 +41,7 @@
       <v-col class="text-center" cols="12" v-if="content">
         {{ this.content.name }}<br>{{ this.content.places }}
         <div v-if="content.keyText">
-          <hr>{{ this.content.keyText }} ({{ this.content.keyPlace }})
+          <hr>{{ this.content.keyText }} [{{ this.content.keyPlace }}]
         </div>
         <div v-if="content.sources">
           <hr>
@@ -86,6 +86,9 @@ const ICON_SOUND_OFF = 'mdi-volume-off';
           this.$scrollTo(element, 2000, { offset: -80 });
         }
       }
+    },
+    beforeDestroy() {
+      this.stopBackgroundMusic();
     },
     computed: {
       currentPage: function () {
