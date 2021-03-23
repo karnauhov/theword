@@ -300,4 +300,11 @@ export default {
     font-family: system-ui;
     font-size: 105%;
   }
+
+  .anchor {
+    display: block;
+    position: relative;
+    top: -60px;
+    visibility: hidden;
+  }
 </style>
