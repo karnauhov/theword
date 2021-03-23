@@ -7,7 +7,7 @@
             <v-carousel-item v-for="chapter in getPart(1000).children" :key="chapter.id" @click.native="goToChapter(chapter.id)">
               <v-sheet class="px-4" color="white" height="100%">
                 <v-row class="fill-height" align="center" justify="center">
-                  <v-card width="82%" :color="colors[5]">
+                  <v-card width="82%" :color="colors[5]" @click="chapterClick">
                     <v-card-title class="subtitle-1">{{ `${getPart(1000).name}. ${chapter.name}` }}</v-card-title>
                     <v-img width="100%" :src="getImagePath(chapter.image)" aspect-ratio="0.85"></v-img>
                   </v-card>
@@ -52,6 +52,9 @@
       },
       getImagePath(imageName) {
         return  this.$root.contentUrl + "images/" + (imageName ? imageName : "empty.png");
+      },
+      chapterClick() {
+        
       }
     },
   }

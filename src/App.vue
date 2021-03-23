@@ -210,6 +210,7 @@ export default {
           const place = parser.get(section, "place", " ").replace(/^"(.*)"$/, '$1').trim().split('|');
           const text = parser.get(section, "text", " ").replace(/^"(.*)"$/, '$1').trim().split('|');
           const comments = parser.get(section, "comments", " ").replace(/^"(.*)"$/, '$1').trim().split('|');
+          const music = parser.get(section, "music", " ").replace(/^"(.*)"$/, '$1').trim().split('|');
           const groupNames = parser.get(section, "groups", " ").replace(/^"(.*)"$/, '$1').trim().split('|');
           const options = parser.options(section);
           const groups = [{"name": "", "items": []}];
@@ -221,6 +222,9 @@ export default {
           }
           if (comments && comments.length > 0 && comments[0]) {
             verse.comments = comments;
+          }
+          if (music) {
+            verse.music = music;
           }
           if (groupNames && groupNames.length > 0) {
             groupNames.forEach(name => {

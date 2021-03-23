@@ -3,10 +3,10 @@
     <v-pagination class="my-1" v-if="this.content.verses && this.content.verses.length > 1" v-model="pageNum" :length="this.content.verses ? this.content.verses.length : 1"></v-pagination>
     <v-expansion-panels :value="commentsExpanded" :focusable="currentPage.comments && currentPage.comments.length > 1" v-if="isCommentExists" :readonly="!currentPage.comments || currentPage.comments.length <= 1" class="mb-4">
       <v-expansion-panel>
-        <v-expansion-panel-header class="pa-2" color="green lighten-4" :style="{'cursor': currentPage.comments && currentPage.comments.length > 1 ? 'pointer' : 'default'}">
+        <v-expansion-panel-header class="pa-2" color="green lighten-4" @click="commentClick" :style="{'cursor': currentPage.comments && currentPage.comments.length > 1 ? 'pointer' : 'default'}">
           <template v-slot:actions>
-            <v-icon class="mx-0" v-if="!currentPage.comments || currentPage.comments.length <= 1" color="teal">mdi-message-arrow-right</v-icon>
-            <v-icon class="mx-0" v-else color="teal">mdi-arrow-down-circle</v-icon>
+            <v-icon class="mx-0" v-if="!currentPage.comments || currentPage.comments.length <= 1" color="teal">{{musicIcon}}</v-icon>
+            <v-icon class="mx-0" v-else color="teal">{{musicIcon}}</v-icon>
             <span class="mt-1 ml-2" v-html="currentPage.comments[0]"></span>
           </template>
         </v-expansion-panel-header>
@@ -62,6 +62,8 @@
 </template>
 
 <script>
+const ICON_SOUND_ON = 'mdi-volume-high';
+const ICON_SOUND_OFF = 'mdi-volume-off';
   export default {
     name: 'Page',
     props: {
@@ -72,6 +74,9 @@
     data: () => ({
       pageNum: 1,
       commentsExpanded: [-1],
+      audio: null,
+      musicIcon: ICON_SOUND_OFF,
+      lastMusic: '',
     }),
     updated() {
       if (!isNaN(parseInt(localStorage.scrollTo))) {
@@ -113,6 +118,32 @@
           }
         }
       },
+      commentClick() {
+        if (this.musicIcon == ICON_SOUND_OFF) {
+          this.musicIcon = ICON_SOUND_ON;
+          this.playCurrentBackgroundMusic();
+        } else {
+          this.musicIcon = ICON_SOUND_OFF;
+          this.stopBackgroundMusic();
+        }
+      },
+      playCurrentBackgroundMusic () {
+        this.stopBackgroundMusic();
+        if (this.currentPage.music) {
+          if (this.currentPage.music == this.lastMusic && this.audio) {
+            this.audio.play();
+          } else {
+            this.audio = new Audio(this.currentPage.music);
+            this.audio.play();
+            this.lastMusic = this.currentPage.music;
+          }
+        }
+      },
+      stopBackgroundMusic () {
+        if (this.audio) {
+          this.audio.pause();
+        }
+      }
     },
     watch: {
       content: function (val) {
