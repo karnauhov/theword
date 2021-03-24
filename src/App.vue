@@ -307,4 +307,11 @@ export default {
     top: -60px;
     visibility: hidden;
   }
+
+  .embedded-video {
+    width: 70vw;
+    height: calc(70vw/1.9);
+    margin-left: 1vw;
+    margin-right: 1vw;
+  }
 </style>
