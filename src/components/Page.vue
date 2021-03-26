@@ -43,11 +43,29 @@
         <div v-if="content.keyText">
           <hr>{{ this.content.keyText }} [{{ this.content.keyPlace }}]
         </div>
+        <div v-if="content.tableOfContents">
+          <hr>
+          <v-expansion-panels >
+            <v-expansion-panel>
+              <v-expansion-panel-header color="blue-grey lighten-4" style="{cursor: pointer}">
+                <center><span v-html="config.ui.tableOfContentsName"></span></center>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content class="text-left" color="blue-grey lighten-4">
+                <div class="pa-0" v-for="(page, i) in content.tableOfContents" v-bind:key="i">
+                  <a @click="tableOfContentsGoToPage">{{page[0]}}</a>
+                  <div class="pa-0 pl-4" v-for="(section, i) in page" v-bind:key="i">
+                    <span v-if="i != 0">{{section}}</span>
+                  </div>
+                </div>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </div>
         <div v-if="content.sources">
           <hr>
           <v-expansion-panels >
             <v-expansion-panel>
-              <v-expansion-panel-header color="blue-grey lighten-4" :style="{'cursor': currentPage.comments && currentPage.comments.length > 1 ? 'pointer' : 'default'}">
+              <v-expansion-panel-header color="blue-grey lighten-4" style="{cursor: pointer}">
                 <center><span v-html="config.ui.sourceName"></span></center>
               </v-expansion-panel-header>
               <v-expansion-panel-content class="text-left" color="blue-grey lighten-4">
@@ -123,15 +141,14 @@ const ICON_SOUND_OFF = 'mdi-volume-off';
       },
       commentClick() {
         if (this.musicIcon == ICON_SOUND_OFF) {
-          this.musicIcon = ICON_SOUND_ON;
           this.playCurrentBackgroundMusic();
         } else {
-          this.musicIcon = ICON_SOUND_OFF;
           this.stopBackgroundMusic();
         }
       },
       playCurrentBackgroundMusic () {
         this.stopBackgroundMusic();
+        this.musicIcon = ICON_SOUND_ON;
         if (this.currentPage.music) {
           if (this.currentPage.music == this.lastMusic && this.audio) {
             this.audio.play();
@@ -143,8 +160,21 @@ const ICON_SOUND_OFF = 'mdi-volume-off';
         }
       },
       stopBackgroundMusic () {
+        this.musicIcon = ICON_SOUND_OFF;
         if (this.audio) {
           this.audio.pause();
+        }
+      },
+      tableOfContentsGoToPage(val) {
+        if (val && val.target && val.target.outerText) {
+          const pageNameText = val.target.outerText;
+          const nameElements = pageNameText.split('.');
+          if (nameElements && nameElements.length > 0)
+          {
+            const newPageNum = Number.parseInt(nameElements[0]);
+            if (newPageNum && newPageNum != this.pageNum)
+              this.pageNum = newPageNum;
+          }
         }
       }
     },
@@ -166,6 +196,7 @@ const ICON_SOUND_OFF = 'mdi-volume-off';
         }
       },
       pageNum: function (val) {
+        this.stopBackgroundMusic();
         localStorage.userPage = JSON.stringify({ "c": this.chapterId, "p": this.pageNum });
       },
     }

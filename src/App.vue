@@ -203,6 +203,7 @@ export default {
       const defaultVerse = parser.isHaveOption("__DEFAULT_SECTION__", "defaultVerse") ? parser.getNumber("__DEFAULT_SECTION__", "defaultVerse") : undefined;
       const sections = parser.sections();
       const verses = [];
+      const tableOfContents = [];
       sections.forEach(section => {
         if (section.indexOf("verse") !== -1) {
           const verse = {};
@@ -247,6 +248,7 @@ export default {
             });
           }
           verses.push(verse);
+          tableOfContents.push(groupNames);
         }
       });
 
@@ -273,6 +275,7 @@ export default {
         json.defaultVerse = defaultVerse;
       }
       json.verses = verses;
+      json.tableOfContents = tableOfContents;
       return json;
     }
   }
