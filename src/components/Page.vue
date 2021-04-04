@@ -22,17 +22,17 @@
         <v-badge :content="textPlace(i)" color="#FFD700" overlap offset-x="36" offset-y="4">
           <v-icon color="orange darken-1">mdi-key</v-icon>
         </v-badge>
-        {{ text }}
+        &nbsp;<span v-html="text"></span>
       </div> 
     </v-sheet>
     <v-sheet class="my-2" v-for="(group, j) in this.currentPage.groups" v-bind:key="j + 10">
       <center class="title">{{ group.name }}</center>
       <v-sheet class="mb-4" color="blue lighten-5" v-for="(item, k) in group.items" v-bind:key="k + 100">
         <div class="ma-2 pa-1" v-if="item.text" :id="'item' + item.id">
-          <v-badge v-if="item.badge" :content="item.badge" color="blue lighten-5" overlap offset-x="36" offset-y="1">
-            <v-icon color="blue">{{'mdi-' + (item.icon ? item.icon : 'key')}}</v-icon>
+          <v-badge v-if="item.badge" :content="item.badge" color="blue lighten-5" overlap :offset-x="item.icon ? 36: 0" :offset-y="item.icon ? 1: -13">
+            <v-icon v-if="item.icon" color="blue">{{'mdi-' + item.icon}}</v-icon>
           </v-badge>
-          <v-icon v-else color="blue">{{'mdi-' + (item.icon ? item.icon : 'key')}}</v-icon>
+          <v-icon v-else-if="item.icon" color="blue">{{'mdi-' + item.icon}}</v-icon>
           &nbsp;<span v-html="item.text"></span>
         </div> 
       </v-sheet>
@@ -41,7 +41,7 @@
       <v-col class="text-center" cols="12" v-if="content">
         {{ this.content.name }}<br>{{ this.content.places }}
         <div v-if="content.keyText">
-          <hr>{{ this.content.keyText }} [{{ this.content.keyPlace }}]
+          <hr>{{ this.content.keyText }} <span v-if="content.keyPlace">[{{ this.content.keyPlace }}]</span>
         </div>
         <div v-if="content.tableOfContents">
           <hr>
