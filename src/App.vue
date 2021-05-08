@@ -287,6 +287,10 @@ export default {
     font-size: 0.6em !important;
   }
 
+  .container {
+    max-width: 100%;
+  }
+
   .v-expansion-panel-header__icon {
     margin-left: 0 !important;
   }
